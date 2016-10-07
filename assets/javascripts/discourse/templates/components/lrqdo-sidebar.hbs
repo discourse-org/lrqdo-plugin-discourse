@@ -1,0 +1,31 @@
+<aside>
+
+  <h3>
+    <strong>
+      <em>
+        Échanger vos idées, partager vos expériences, interroger la communauté
+      </em>
+    </strong>
+  </h3>
+
+  {{#if canCreateTopic}}
+    <button class="btn btn-primary btn-lg" {{action "createTopic"}}>Créer un sujet</button>
+  {{/if}}
+
+  <h6 class="text-uppercase">
+    <strong>Les catégories</strong>
+  </h6>
+
+  <ul class="list-unstyled">
+    {{#each category in categories}}
+      <li>
+        <a href="{{category.url}}">
+          <span class="tag tag-default">
+            {{category.name}}
+          </span>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+
+</aside>

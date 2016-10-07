@@ -1,0 +1,216 @@
+<div class="card">
+  <div class="card-block">
+    {{#if topic.image_url}}
+      <div class="pull-right m-l-1">
+        <img src="{{topic.image_url}}" alt="" width="190px" height="190px" />
+      </div>
+    {{/if}}
+    <a href="{{topic.url}}">
+      <h2 class="card-title">
+        <strong>
+          {{topic.title}}
+        </strong>
+      </h2>
+    </a>
+    <div class="card-meta-data">
+      <span class="show-first">
+        {{#each topic.posters as |poster|}}
+          <a href="/users/{{poster.user.username}}">
+            {{avatar poster avatarTemplatePath="user.avatar_template" usernamePath="user.username" imageSize="large" extraClasses="img-circle pull-left"}}
+          </a>
+        {{/each}}
+      </span>
+      <span class="show-first">
+        {{#each topic.posters as |poster|}}
+          <a href="/users/{{poster.user.username}}" data-auto-route="true" data-user-card="{{poster.user.username}}">
+            <strong>
+              {{poster.user.username}}
+            </strong>
+          </a>
+        {{/each}}
+      </span>
+      <span class="separator">
+      –
+      </span>
+      RR depuis 2 ans à La Rochelle (Poitou-Charentes)
+      <div class="text-muted">
+        il y a 30 minutes
+      </div>
+    </div>
+    {{#if topic.hasExcerpt}}
+      <p class="card-text">
+        {{{topic.excerpt}}}
+        {{#if topic.excerptTruncated}}
+          <br />
+          <a href="{{topic.url}}">
+            <strong>
+              {{i18n 'read_more'}}
+            </strong>
+          </a>
+        {{/if}}
+      </p>
+    {{/if}}
+    <ul class="list-inline m-b-0">
+      <li class="list-inline-item font-weight-bold">
+        <a href="{{topic.url}}">
+          {{topic.replyCount}}
+          <span class="action">
+            Répondre
+          </span>
+        </a>
+      </li>
+      {{#if showPosters}}
+        <li class="list-inline-item font-weight-bold">
+          <a href="{{topic.url}}">
+            <i class="fa fa-heart-o"></i>
+            {{topic.posters.length}}
+          </a>
+        </li>
+      {{/if}}
+      {{#unless hideCategory}}
+        {{#unless topic.isPinnedUncategorized}}
+          <li class="list-inline-item">
+            <a href="{{topic.category.url}}">
+              <span class="tag tag-default font-weight-bold">
+                {{topic.category.name}}
+              </span>
+            </a>
+          </li>
+        {{/unless}}
+      {{/unless}}
+    </ul>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item list-group-item-sm">
+      <a href="#">
+        <strong>
+          voir les autres commentaires
+        </strong>
+      </a>
+    </li>
+    <li class="list-group-item p-y-1">
+      <a href="#">
+        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
+      </a>
+      <div class="pushed-content">
+        <a href="#">
+          <strong>
+            Clem.75
+          </strong>
+        </a>
+         uptatiis vendi ut vellibus ma namus mincit que sequaspition exerionse moluptaserae porese quo dest ma aut labore verit quo voluptatum ipid dolores…
+        <br />
+        <a class="see-more" href="#">
+          <strong>
+            Voir plus
+          </strong>
+        </a>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">
+              <strong>
+                Répondre
+              </strong>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
+              <strong>
+                Aimer
+              </strong>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            il y a 30 minutes
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="list-group-item p-y-1">
+      <a href="#">
+        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
+      </a>
+      <div class="pushed-content">
+        <a href="#">
+          <strong>
+            Clem.75
+          </strong>
+        </a>
+         uptatiis vendi ut vellibus ma namus mincit que sequaspition exerionse moluptaserae porese quo dest ma aut labore verit quo voluptatum ipid dolores…
+        <br />
+        <a class="see-more" href="#">
+          <strong>
+            Voir plus
+          </strong>
+        </a>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">
+              <strong>
+                Répondre
+              </strong>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
+              <strong>
+                Aimer
+              </strong>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            il y a 30 minutes
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="list-group-item p-y-1">
+      <a href="#">
+        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
+      </a>
+      <div class="pushed-content">
+        <a href="#">
+          <strong>
+            Clem.75
+          </strong>
+        </a>
+         uptatiis vendi ut vellibus ma namus mincit que sequaspition exerionse moluptaserae porese quo dest ma aut labore verit quo voluptatum ipid dolores…
+        <br />
+        <a class="see-more" href="#">
+          <strong>
+            Voir plus
+          </strong>
+        </a>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">
+              <strong>
+                Répondre
+              </strong>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
+              <strong>
+                Aimer
+              </strong>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            il y a 30 minutes
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="list-group-item p-y-1 list-group-item-btn">
+      <a href="{{topic.url}}">
+        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
+        <div class="pushed-content">
+          <strong>
+            Répondre à cette discussion
+          </strong>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
