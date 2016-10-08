@@ -54,7 +54,7 @@ const SearchHelper = {
 };
 
 export default createWidget('header-search', {
-  tagName: 'div.header-search',
+  tagName: 'div',
   buildKey: () => 'header-search',
 
   defaultState() {
@@ -95,8 +95,8 @@ export default createWidget('header-search', {
           contextEnabled = state.contextEnabled,
           loading = state.loading,
           contents = [
-            this.attach('header-search-term', { value: state.term, contextEnabled, loading }),
-            this.attach('header-search-context', { contextEnabled })
+            this.attach('header-search-term', { value: state.term, contextEnabled, loading })
+            /* this.attach('header-search-context', { contextEnabled }) */
           ];
 
     if (!loading && state.showResults) {

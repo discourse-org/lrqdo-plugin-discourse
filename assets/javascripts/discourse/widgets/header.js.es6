@@ -1,10 +1,25 @@
 import { createWidget } from 'discourse/widgets/widget';
 import { iconNode } from 'discourse/helpers/fa-icon-node';
 import { avatarImg } from 'discourse/widgets/post';
+import Composer from 'discourse/models/composer';
 import DiscourseURL from 'discourse/lib/url';
 import { wantsNewWindow } from 'discourse/lib/intercept-click';
-
+import { translateSize, avatarUrl } from 'discourse/lib/utilities';
 import { h } from 'virtual-dom';
+
+const button = {
+  buildClasses(attrs) {
+    if (attrs.active) { return "active"; }
+  },
+
+  click(e) {
+    if (wantsNewWindow(e)) { return; }
+    e.preventDefault();
+    if (!this.attrs.active) {
+      this.sendWidgetAction(this.attrs.action);
+    }
+  }
+};
 
 const dropdown = {
   buildClasses(attrs) {
@@ -21,24 +36,39 @@ const dropdown = {
 };
 
 createWidget('header-notifications', {
+
+  html(attrs) {
+    const { currentUser } = this;
+
+    const contents = h("div.nav-link", [
+        h("i.fa.fa-bell-o"),
+        h("span.hidden-lg-down", " Notifications")
+      ]);
+
+    return contents;
+  }
+});
+
+createWidget('header-user', {
   settings: {
-    avatarSize: 'medium'
+    avatarSize: 'large'
   },
 
   html(attrs) {
     const { currentUser } = this;
 
-    const contents = [ avatarImg(this.settings.avatarSize, {
-      template: currentUser.get('avatar_template'),
-      username: currentUser.get('username')
-    }) ];
-
-    const unreadNotifications = currentUser.get('unread_notifications');
-    if (!!unreadNotifications) {
-      contents.push(this.attach('link', { action: attrs.action,
-                                          className: 'badge-notification unread-notifications',
-                                          rawLabel: unreadNotifications }));
+    let avatar;
+    const size = translateSize(this.settings.avatarSize);
+    const url = avatarUrl(currentUser.get('avatar_template'), size);
+    if (url || url.length > 0) {
+      const title = currentUser.get('username');
+      const properties = {
+        attributes: { alt: '', width: size, height: size, src: Discourse.getURLWithCDN(url), title },
+        className: 'img-circle'
+      };
+      avatar = h('img', properties);
     }
+    const contents = [ avatar ];
 
     const unreadPMs = currentUser.get('unread_private_messages');
     if (!!unreadPMs) {
@@ -51,8 +81,8 @@ createWidget('header-notifications', {
   }
 });
 
-createWidget('user-dropdown', jQuery.extend({
-  tagName: 'li.list-inline-item',
+createWidget('notifications-dropdown', jQuery.extend({
+  tagName: 'li.nav-item',
 
   buildId() {
     return 'current-user';
@@ -61,13 +91,28 @@ createWidget('user-dropdown', jQuery.extend({
   html(attrs) {
     const { currentUser } = this;
 
-    return h('a.icon', { attributes: { href: currentUser.get('path'), 'data-auto-route': true } },
+    return h('a', { attributes: { href: currentUser.get('path'), 'data-auto-route': true } },
              this.attach('header-notifications', attrs));
   }
 }, dropdown));
 
+createWidget('user-dropdown', jQuery.extend({
+  tagName: 'li.nav-item',
+
+  buildId() {
+    return 'current-user';
+  },
+
+  html(attrs) {
+    const { currentUser } = this;
+
+    return h('a', { attributes: { href: currentUser.get('path'), 'data-auto-route': true } },
+             this.attach('header-user', attrs));
+  }
+}, dropdown));
+
 createWidget('header-dropdown', jQuery.extend({
-  tagName: 'li.list-inline-item',
+  tagName: 'li.nav-item',
 
   html(attrs) {
     const title = I18n.t(attrs.title);
@@ -77,7 +122,7 @@ createWidget('header-dropdown', jQuery.extend({
       body.push(attrs.contents.call(this));
     }
 
-    return h('a.icon', { attributes: { href: attrs.href,
+    return h('a.nav-link', { attributes: { href: attrs.href,
                                        'data-auto-route': true,
                                        title,
                                        'aria-label': title,
@@ -85,14 +130,33 @@ createWidget('header-dropdown', jQuery.extend({
   }
 }, dropdown));
 
+createWidget('header-button', jQuery.extend({
+  tagName: 'li.nav-item',
+
+  html(attrs) {
+
+    const body = [];
+    if (attrs.contents) {
+      body.push(attrs.contents.call(this));
+    }
+
+    return h('button.btn.btn-primary', body);
+  }
+}, button));
+
 createWidget('header-icons', {
-  tagName: 'ul.list-inline',
+  tagName: 'ul.nav.navbar-nav.pull-lg-right',
 
   buildAttributes() {
     return { role: 'navigation' };
   },
 
   html(attrs) {
+    const createTopic = this.attach('header-button', {
+                     action: 'createTopic',
+                     contents() { return 'Créer un sujet'; }
+                   });
+
     const hamburger = this.attach('header-dropdown', {
                         title: 'hamburger_menu',
                         icon: 'bars',
@@ -119,8 +183,11 @@ createWidget('header-icons', {
                      href: '/search'
                    });
 
-    const icons = [search, hamburger];
+    const icons = [];
     if (this.currentUser) {
+      icons.push(createTopic);
+      icons.push(this.attach('notifications-dropdown', { active: attrs.notificationsVisible,
+                                                action: 'toggleNotificationsMenu' }));
       icons.push(this.attach('user-dropdown', { active: attrs.userVisible,
                                                 action: 'toggleUserMenu' }));
     }
@@ -138,17 +205,19 @@ createWidget('header-buttons', {
     const buttons = [];
 
     if (attrs.canSignUp && !attrs.topic) {
-      buttons.push(this.attach('button', { label: "sign_up",
-                                           className: 'btn-primary btn-small sign-up-button',
-                                           action: "showCreateAccount" }));
+      buttons.push(h('li.nav-item', this.attach('button', { label: "sign_up",
+                                           className: 'btn btn-primary',
+                                           action: "showCreateAccount" })));
     }
 
+    buttons.push(h('li.nav-item', this.attach('button', { label: 'log_in',
+                                         className: 'btn btn-primary',
+                                         action: 'showLogin' })));
 
-    buttons.push(this.attach('button', { label: 'log_in',
-                                         className: 'btn-primary btn-small login-button',
-                                         action: 'showLogin',
-                                         icon: 'user' }));
-    return buttons;
+    /* Little trick for the search mode */
+    buttons.push(h('li.nav-item', ''));
+
+    return h('ul.nav.navbar-nav.pull-lg-right', buttons);
   }
 });
 
@@ -159,6 +228,7 @@ export default createWidget('header', {
   defaultState() {
     return { searchVisible: false,
              hamburgerVisible: false,
+             notificationsVisible: false,
              userVisible: false,
              contextEnabled: false };
   },
@@ -166,6 +236,7 @@ export default createWidget('header', {
   html(attrs, state) {
     const panels = [this.attach('header-buttons', attrs),
                     this.attach('header-icons', { hamburgerVisible: state.hamburgerVisible,
+                                                  notificationsVisible: state.notificationsVisible,
                                                   userVisible: state.userVisible,
                                                   searchVisible: state.searchVisible,
                                                   flagCount: attrs.flagCount })];
@@ -174,16 +245,13 @@ export default createWidget('header', {
       panels.push(this.attach('search-menu', { contextEnabled: state.contextEnabled }));
     } else if (state.hamburgerVisible) {
       panels.push(this.attach('hamburger-menu'));
+    } else if (state.notificationsVisible) {
+      panels.push(this.attach('notifications-menu'));
     } else if (state.userVisible) {
       panels.push(this.attach('user-menu'));
     }
 
-    const search = h('form', { role: "search" },
-      h('div.input-group', [
-        h('div.input-group-btn.input-group-btn-inside.input-group-btn-inside-lg', h('i.fa.fa-search')),
-        h('input.typeahead.form-control.form-control-lg.form-control-with-icon-left.form-control-with-icon-left-lg',
-        { placeholder: "Rechercher", type: "text" })
-      ]));
+    const search = h('form', { "attributes": { "role":"search" }}, this.attach('header-search'));
 
     const contents = [ this.attach('home-logo', { minimized: !!attrs.topic }),
                        h('div.col-md-5.col-lg-4', search),
@@ -193,13 +261,18 @@ export default createWidget('header', {
       contents.push(this.attach('header-topic-info', attrs));
     }
 
-    return h('nav.navbar.navbar-fixed-top',
-        h('#collapsingNavbar.navbar-toggleable-md.collapse navbar-toggleable-md',
+    return h('nav.navbar.navbar-fixed-top', [
+        h("div.navbar-mobile", [ h("a.navbar-brand.hidden-lg-up", {"attributes":{"href":"/"}},
+          [ h("img", {"attributes":{"src":"http://laruchequiditoui-templates.sebastienbourdu.com/images/logo-e3ef2e8d.png"}}, [ "Le forum" ]) ]),
+          h("button.pull-right.navbar-toggler.hidden-lg-up",
+          {"attributes":{"aria-controls":"collapsingNavbar","aria-expanded":"false","aria-label":"Toggle navigation","type":"button"},
+          "dataset":{"target":"#collapsingNavbar","toggle":"collapse"}}, [ "☰" ]) ]),
+        h('#collapsingNavbar.navbar-toggleable-md.collapse',
           h('div.container-fluid',
             h('div.row', contents)
           )
         )
-      );
+      ]);
   },
 
   updateHighlight() {
@@ -210,6 +283,7 @@ export default createWidget('header', {
   },
 
   closeAll() {
+    this.state.notificationsVisible = false;
     this.state.userVisible = false;
     this.state.hamburgerVisible = false;
     this.state.searchVisible = false;
@@ -239,6 +313,17 @@ export default createWidget('header', {
     if (this.state.searchVisible) {
       Ember.run.schedule('afterRender', () => $('#search-term').focus().select());
     }
+  },
+
+  toggleNotificationsMenu() {
+    this.state.notificationsVisible = !this.state.notificationsVisible;
+  },
+
+  createTopic() {
+    this.container.lookup('controller:composer').open({
+      action: Composer.CREATE_TOPIC,
+      draftKey: Composer.CREATE_TOPIC
+     });
   },
 
   toggleUserMenu() {
@@ -287,7 +372,7 @@ export default createWidget('header', {
   domClean() {
     const { state } = this;
 
-    if (state.searchVisible || state.hamburgerVisible || state.userVisible) {
+    if (state.searchVisible || state.hamburgerVisible || state.notificationsVisible || state.userVisible) {
       this.closeAll();
     }
   },

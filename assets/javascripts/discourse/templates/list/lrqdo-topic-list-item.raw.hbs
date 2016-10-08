@@ -29,12 +29,18 @@
           </a>
         {{/each}}
       </span>
-      <span class="separator">
-      –
+      <span class="show-first">
+        {{#each topic.posters as |poster|}}
+          {{#if topic.user.title}}
+            <span class="separator">–</span>
+            <span>
+              {{poster.user.title}}
+            <span>
+          {{/if}}
+        {{/each}}
       </span>
-      RR depuis 2 ans à La Rochelle (Poitou-Charentes)
       <div class="text-muted">
-        il y a 30 minutes
+        {{format-date topic.created_at leaveAgo="true"}}
       </div>
     </div>
     {{#if topic.hasExcerpt}}
@@ -80,6 +86,7 @@
       {{/unless}}
     </ul>
   </div>
+  {{#if topic.comments}}
   <ul class="list-group list-group-flush">
     <li class="list-group-item list-group-item-sm">
       <a href="#">
@@ -213,4 +220,5 @@
       </a>
     </li>
   </ul>
+  {{/if}}
 </div>

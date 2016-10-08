@@ -12,7 +12,7 @@ export default createWidget('home-logo', {
           h('img', { src: "http://laruchequiditoui-templates.sebastienbourdu.com/images/logo-e3ef2e8d.png", alt: "Site logo"}),
           h('span', 'Le forum')
         ]),
-        h('p.navbar-text', h('a', { href: "#" }, 'Retour'))
+        h('p.navbar-text', h('a', { href: "#" }, [h('i.fa.fa-chevron-left'), ' Retour']))
     ]);
   },
 

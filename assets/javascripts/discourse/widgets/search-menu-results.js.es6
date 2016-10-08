@@ -4,7 +4,6 @@ import RawHtml from 'discourse/widgets/raw-html';
 import { createWidget } from 'discourse/widgets/widget';
 import { h } from 'virtual-dom';
 import { iconNode } from 'discourse-common/helpers/fa-icon';
-import DiscourseURL from 'discourse/lib/url';
 
 class Highlighted extends RawHtml {
   constructor(html, term) {
@@ -14,7 +13,7 @@ class Highlighted extends RawHtml {
 
   decorate($html) {
     if (this.term) {
-      $html.highlight(this.term.split(/\s+/), { className: 'search-highlight' });
+      $html.highlight(this.term.split(/\s+/), { className: 'font-weight-bold' });
     }
   }
 }
@@ -23,18 +22,12 @@ function createSearchResult(type, linkField, fn) {
   return createWidget(`search-result-${type}`, {
     html(attrs) {
       return attrs.results.map(r => {
-        return h('li', this.attach('link', {
+        return h('.tt-suggestion', this.attach('link', {
+          href: r.get(linkField),
           contents: () => fn.call(this, r, attrs.term),
-          className: 'search-link',
-          action: 'resultClicked',
-          actionParam: r.get(linkField)
+          className: 'search-link'
         }));
       });
-    },
-
-    resultClicked(href) {
-      this.sendWidgetAction('toggleResults', false);
-      DiscourseURL.routeTo(href)
     }
   });
 }
@@ -43,7 +36,7 @@ function postResult(result, link, term) {
   const html = [link];
 
   if (!this.site.mobileView) {
-    html.push(h('span.blurb', [ dateNode(result.created_at),
+    html.push(h('div.small.text-muted', [ dateNode(result.created_at),
                                 ' - ',
                                 new Highlighted(result.blurb, term) ]));
   }
@@ -57,7 +50,7 @@ createSearchResult('user', 'path', function(u) {
 
 createSearchResult('topic', 'url', function(result, term) {
   const topic = result.topic;
-  const link = h('span.topic', [
+  const link = h('div.topic', [
     this.attach('topic-status', { topic, disableActions: true }),
     h('span.topic-title', new Highlighted(topic.get('fancyTitle'), term)),
     this.attach('category-link', { category: topic.get('category'), link: false })
@@ -74,12 +67,12 @@ createSearchResult('category', 'url', function (c) {
   return this.attach('category-link', { category: c, link: false });
 });
 
-createWidget('header-search-results', {
-  tagName: 'div.results',
+createWidget('search-menu-results', {
+  tagName: 'span.twitter-typeahead',
 
   html(attrs) {
     if (attrs.noResults) {
-      return h('div.no-results', I18n.t('search.no_results'));
+      return h('div.tt-menu.tt-open', h('div.tt-suggestion.text-muted', I18n.t('search.no_results')));
     }
 
     const results = attrs.results;
@@ -93,19 +86,19 @@ createWidget('header-search-results', {
       };
 
       if (rt.moreUrl) {
-        more.push(this.attach('link', $.extend(moreArgs, { href: rt.moreUrl,
-                                                           action: 'toggleResults',
-                                                           actionParam: false})));
+        more.push(this.attach('link', $.extend(moreArgs, { href: rt.moreUrl })));
       } else if (rt.more) {
         more.push(this.attach('link', $.extend(moreArgs, { action: "moreOfType",
                                                            actionParam: rt.type,
                                                            className: "filter filter-type"})));
       }
 
-      return [
-        h('ul', this.attach(rt.componentName, { results: rt.results, term: attrs.term })),
-        h('div.no-results', more)
-      ];
+      const content = [this.attach(rt.componentName, { results: rt.results, term: attrs.term })];
+      if (more.length > 0) {
+        content.push(h('div.tt-suggestion.text-muted', more));
+      }
+
+      return h('div.tt-menu.tt-open', content);
     });
   }
 });

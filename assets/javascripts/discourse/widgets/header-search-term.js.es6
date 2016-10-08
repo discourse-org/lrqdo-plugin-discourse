@@ -1,14 +1,20 @@
 import { createWidget } from 'discourse/widgets/widget';
+import { h } from 'virtual-dom';
 
 createWidget('header-search-term', {
-  tagName: 'input',
+  tagName: 'div.input-group',
   buildId: () => 'header-search-term',
 
-  buildAttributes(attrs) {
-    return { type: 'text',
-             value: attrs.value || '',
-             placeholder: attrs.contextEnabled ? "" : I18n.t('search.title'),
-             class: attrs.loading ? 'searching-background' : ''};
+  html(attrs) {
+    let attributes =  { type: 'text',
+       value: attrs.value || '',
+       placeholder: attrs.contextEnabled ? "" : "Rechercher",
+       class: attrs.loading ? 'input-searching' : ''};
+
+    return [
+      h('div.input-group-btn.input-group-btn-inside.input-group-btn-inside-lg', h('i.fa.fa-search')),
+      h('input.form-control.form-control-lg.form-control-with-icon-left.form-control-with-icon-left-lg', attributes)
+    ];
   },
 
   keyUp(e) {
@@ -17,7 +23,7 @@ createWidget('header-search-term', {
     }
 
     const val = this.attrs.value;
-    const newVal = $(`#${this.buildId()}`).val();
+    const newVal = $(`#${this.buildId()} input`).val();
 
     if (newVal !== val) {
       this.sendWidgetAction('searchTermChanged', newVal);
