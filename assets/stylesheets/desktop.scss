@@ -1,0 +1,90 @@
+// @import "vendor/normalize";
+@import "vendor/font_awesome/font-awesome";
+@import "vendor/pikaday";
+@import "common/foundation/helpers";
+@import "common/foundation/base";
+@import "vendor/select2";
+@import "common/foundation/mixins";
+@import "common/foundation/variables";
+
+@import "common/components/badges";
+@import "common/components/banner";
+@import "common/components/buttons";
+@import "common/components/date-picker";
+@import "common/components/hashtag";
+@import "common/components/keyboard_shortcuts";
+@import "common/components/navs";
+
+@import "common/input_tip";
+@import "common/topic-entrance";
+@import "common/printer-friendly";
+
+@import "common/base/topic-list";
+@import "common/base/about";
+@import "common/base/activation";
+// @import "common/base/alert";
+@import "common/base/bbcode";
+@import "common/base/cat_reorder";
+@import "common/base/code_highlighting";
+@import "common/base/colorpicker";
+@import "common/base/combobox";
+@import "common/base/compose";
+@import "common/base/composer-user-selector";
+@import "common/base/directory";
+@import "common/base/discourse";
+@import "common/base/ember-select";
+@import "common/base/emoji";
+@import "common/base/exception";
+@import "common/base/faqs";
+// @import "common/base/header";
+@import "common/base/history";
+@import "common/base/lightbox";
+@import "common/base/login";
+@import "common/base/magnific-popup";
+@import "common/base/menu-panel";
+@import "common/base/mobile";
+@import "common/base/modal";
+@import "common/base/notification-options";
+@import "common/base/onebox";
+@import "common/base/request_access";
+@import "common/base/rtl";
+@import "common/base/search";
+@import "common/base/share_link";
+@import "common/base/tagging";
+@import "common/base/topic";
+@import "common/base/topic-admin-menu";
+@import "common/base/topic-post";
+@import "common/base/upload";
+@import "common/base/user";
+@import "common/base/user-badges";
+@import "common/base/username_tagsinput";
+
+@import "common/d-editor";
+
+//
+// /* @import "desktop/*"; TODO: get this working again */
+//
+// @import "desktop/alert";
+@import "desktop/banner";
+@import "desktop/compose";
+// @import "desktop/discourse";
+// @import "desktop/header";
+@import "desktop/login";
+@import "desktop/modal";
+@import "desktop/user-card";
+@import "desktop/category-list";
+@import "desktop/topic-list";
+@import "desktop/topic-post";
+@import "desktop/topic-timeline";
+@import "desktop/topic";
+@import "desktop/upload";
+@import "desktop/user";
+@import "desktop/history";
+@import "desktop/queued-posts";
+@import "desktop/menu-panel";
+
+/* These files doesn't actually exist, they are injected by DiscourseSassImporter. */
+
+@import "plugins";
+@import "plugins_desktop";
+@import "category_backgrounds";
