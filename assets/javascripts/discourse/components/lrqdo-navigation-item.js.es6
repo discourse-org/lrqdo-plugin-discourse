@@ -1,5 +1,6 @@
 import computed from "ember-addons/ember-computed-decorators";
 import StringBuffer from 'discourse/mixins/string-buffer';
+import DiscourseURL from 'discourse/lib/url';
 
 export default Ember.Component.extend(StringBuffer, {
   tagName: 'a',
@@ -7,6 +8,7 @@ export default Ember.Component.extend(StringBuffer, {
   attributeBindings: ['title', 'href'],
   hidden: Em.computed.not('content.visible'),
   rerenderTriggers: ['content.count'],
+  href: Em.computed.alias('content.href'),
 
   @computed("content.categoryName", "content.name")
   title(categoryName, name) {
@@ -20,11 +22,6 @@ export default Ember.Component.extend(StringBuffer, {
     return I18n.t("filters." + name.replace("/", ".") + ".help", extra);
   },
 
-  @computed()
-  href() {
-    return this.get('content').get('href');
-  },
-
   @computed("content.filterMode", "filterMode")
   active(contentFilterMode, filterMode) {
     return contentFilterMode === filterMode ||
@@ -34,5 +31,11 @@ export default Ember.Component.extend(StringBuffer, {
   renderString(buffer) {
     const content = this.get('content');
     buffer.push(this.get('content.displayName'));
+  },
+
+  click(e) {
+    e.preventDefault();
+    DiscourseURL.routeTo(this.get('href'));
+    return true;
   }
 });

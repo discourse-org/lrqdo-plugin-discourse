@@ -8,7 +8,7 @@ export default createWidget('notifications-menu', {
     const path = this.currentUser.get('path');
 
     return [h('h6.dropdown-header', 'Notifications'),
-            h('.dropdown-item', this.attach('user-notifications', { path })),
+            this.attach('user-notifications', { path }),
             h('.dropdown-item',
               h('.dropdown-item-content.dropdown-item-content-btn',
                 h('a.btn.btn-secondary.btn-block', { href: `${path}/notifications` },

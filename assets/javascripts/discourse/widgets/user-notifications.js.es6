@@ -18,7 +18,7 @@ export default createWidget('user-notifications', {
     if (this.loading) { return; }
 
     // estimate (poorly) the amount of notifications to return
-    let limit = Math.round(($(window).height() - headerHeight()) / 55);
+    let limit = Math.round(($(window).height() - headerHeight()) / 100);
     // we REALLY don't want to be asking for negative counts of notifications
     // less than 5 is also not that useful
     if (limit < 5) { limit = 5; }
@@ -60,7 +60,7 @@ export default createWidget('user-notifications', {
 
     const result = [];
     if (state.loading) {
-      result.push(h('div.text-xs-center', h('div.dropdown-item-content',
+      result.push(h('div.dropdown-item.text-xs-center', h('div.dropdown-item-content',
         [h("i.fa.fa-circle-o-notch.fa-spin.fa-2x.fa-fw"),
         h("span.sr-only", [ "Chargement..." ])])));
     } else if (state.notifications.length) {

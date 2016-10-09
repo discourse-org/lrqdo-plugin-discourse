@@ -12,7 +12,7 @@ const INVITED_TYPE = 8;
 const GROUP_SUMMARY_TYPE = 16;
 
 createWidget('notification-item', {
-  tagName: 'div.dropdown-item-content',
+  tagName: 'div.dropdown-item',
 
   buildClasses(attrs) {
     const classNames = [];
@@ -93,10 +93,10 @@ createWidget('notification-item', {
     const lookup = this.site.get('notificationLookup');
     const notName = lookup[notificationType];
 
-    const contents = new RawHtml({ html: `<div>${emojiUnescape(this.text(notificationType, notName))}</div>` });
+    const contents = new RawHtml({ html: `${emojiUnescape(this.text(notificationType, notName))}` });
     const href = this.url();
     const alt = I18n.t(`notifications.alt.${notName}`);
-    return href ? h('a', { attributes: { href, alt, 'data-auto-route': true } }, contents) : contents;
+    return href ? h('div.dropdown-item-content', h('a', { attributes: { href, alt, 'data-auto-route': true } }, contents)) : h('div.dropdown-item-content', contents);
   },
 
   click(e) {
