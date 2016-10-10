@@ -32,6 +32,5 @@ hooks:
 and rebuild docker via
 
 ```
-cd /var/discourse
 ./launcher rebuild app
 ```

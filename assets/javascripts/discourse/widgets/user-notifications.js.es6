@@ -60,9 +60,9 @@ export default createWidget('user-notifications', {
 
     const result = [];
     if (state.loading) {
-      result.push(h('div.dropdown-item.text-xs-center', h('div.dropdown-item-content',
+      result.push(h('div.dropdown-item', h('div.dropdown-item-content', h('div.text-xs-center',
         [h("i.fa.fa-circle-o-notch.fa-spin.fa-2x.fa-fw"),
-        h("span.sr-only", [ "Chargement..." ])])));
+        h("span.sr-only", [ "Chargement..." ])]))));
     } else if (state.notifications.length) {
 
       const notificationItems = state.notifications.map(n => this.attach('notification-item', n));

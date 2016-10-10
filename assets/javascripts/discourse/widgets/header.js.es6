@@ -222,7 +222,7 @@ createWidget('header-buttons', {
 });
 
 export default createWidget('header', {
-  tagName: 'header',
+  tagName: 'header.d-headerr',
   buildKey: () => `header`,
 
   defaultState() {

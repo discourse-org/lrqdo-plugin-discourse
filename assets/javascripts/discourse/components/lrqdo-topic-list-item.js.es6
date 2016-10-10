@@ -18,7 +18,7 @@ export function showEntrance(e) {
 export default Ember.Component.extend(StringBuffer, {
   rerenderTriggers: ['bulkSelectEnabled', 'topic.pinned'],
   tagName: 'div',
-  rawTemplate: 'list/lrqdo-topic-list-item.raw',
+  rawTemplate: 'list/topic-list-item.raw',
   classNameBindings: [':topic-list-item', 'unboundClassNames'],
   attributeBindings: ['data-topic-id'],
   'data-topic-id': Em.computed.alias('topic.id'),
