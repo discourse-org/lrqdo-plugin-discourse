@@ -93,7 +93,7 @@ createWidget('notification-item', {
     const lookup = this.site.get('notificationLookup');
     const notName = lookup[notificationType];
 
-    const contents = new RawHtml({ html: `${emojiUnescape(this.text(notificationType, notName))}` });
+    const contents = new RawHtml({ html: `<div>${emojiUnescape(this.text(notificationType, notName))}</div>` });
     const href = this.url();
     const alt = I18n.t(`notifications.alt.${notName}`);
     return href ? h('div.dropdown-item-content', h('a', { attributes: { href, alt, 'data-auto-route': true } }, contents)) : h('div.dropdown-item-content', contents);
