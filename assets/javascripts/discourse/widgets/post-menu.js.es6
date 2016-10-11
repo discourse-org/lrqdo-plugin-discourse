@@ -316,7 +316,7 @@ export default createWidget('post-menu', {
       return this.sendWidgetAction('toggleLike');
     }
 
-    const $heart = $(`[data-post-id=${attrs.id}] .fa-heart`);
+    const $heart = $(`[data-post-id=${attrs.id}] .fa-heart-o`);
     $heart.closest('button').addClass('has-like');
 
     const scale = [1.0, 1.5];
