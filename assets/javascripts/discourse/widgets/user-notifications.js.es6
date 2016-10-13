@@ -18,7 +18,7 @@ export default createWidget('user-notifications', {
     if (this.loading) { return; }
 
     // estimate (poorly) the amount of notifications to return
-    let limit = Math.round(($(window).height() - headerHeight()) / 100);
+    let limit = Math.round(($(window).height() - headerHeight()) / 130);
     // we REALLY don't want to be asking for negative counts of notifications
     // less than 5 is also not that useful
     if (limit < 5) { limit = 5; }

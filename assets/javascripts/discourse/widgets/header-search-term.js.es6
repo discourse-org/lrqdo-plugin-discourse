@@ -2,24 +2,29 @@ import { createWidget } from 'discourse/widgets/widget';
 import { h } from 'virtual-dom';
 
 createWidget('header-search-term', {
-  tagName: 'div.input-group',
+  tagName: 'form',
   buildId: () => 'header-search-term',
+  buildAttributes(attrs) {
+    return { role: 'search', onsubmit: 'return false;' };
+  },
 
   html(attrs) {
+    const searchInput = "header form[role=search] input";
+
     let attributes =  { type: 'text',
        value: attrs.value || '',
        placeholder: attrs.contextEnabled ? "" : "Rechercher",
        class: attrs.loading ? 'input-searching' : ''};
 
-    return [
+    return h('div.input-group', [
       h('div.input-group-btn.input-group-btn-inside.input-group-btn-inside-lg', h('i.fa.fa-search')),
       h('input.form-control.form-control-lg.form-control-with-icon-left.form-control-with-icon-left-lg', attributes)
-    ];
+    ]);
   },
 
   keyUp(e) {
     if (e.which === 13) {
-      return this.sendWidgetAction('fullSearch');
+      this.sendWidgetAction('fullSearch');
     }
 
     const val = this.attrs.value;

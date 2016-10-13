@@ -40,9 +40,18 @@ createWidget('header-notifications', {
   html(attrs) {
     const { currentUser } = this;
 
+    const unreadNotifications = currentUser.get('unread_notifications');
+    let notifications;
+    if (!!unreadNotifications) {
+      notifications = this.attach('link', { action: attrs.action,
+                                          className: 'badge-notification unread-notifications',
+                                          rawLabel: unreadNotifications });
+    }
+
     const contents = h("div.nav-link", [
         h("i.fa.fa-bell-o"),
-        h("span.hidden-lg-down", " Notifications")
+        h("span.hidden-lg-down", " Notifications"),
+        notifications
       ]);
 
     return contents;
@@ -70,12 +79,12 @@ createWidget('header-user', {
     }
     const contents = [ avatar ];
 
-    const unreadPMs = currentUser.get('unread_private_messages');
-    if (!!unreadPMs) {
-      contents.push(this.attach('link', { action: attrs.action,
-                                          className: 'badge-notification unread-private-messages',
-                                          rawLabel: unreadPMs }));
-    }
+    /* const unreadPMs = currentUser.get('unread_private_messages'); */
+    /* if (!!unreadPMs) { */
+    /*   contents.push(this.attach('link', { action: attrs.action, */
+    /*                                       className: 'badge-notification unread-private-messages', */
+    /*                                       rawLabel: unreadPMs })); */
+    /* } */
 
     return contents;
   }
@@ -251,7 +260,7 @@ export default createWidget('header', {
       panels.push(this.attach('user-menu'));
     }
 
-    const search = h('form', { "attributes": { "role":"search" }}, this.attach('header-search'));
+    const search = this.attach('header-search');
 
     const contents = [ this.attach('home-logo', { minimized: !!attrs.topic }),
                        h('div.col-md-5.col-lg-4', search),

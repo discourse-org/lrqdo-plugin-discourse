@@ -209,8 +209,7 @@ export default createWidget('post-menu', {
 
     const allButtons = [];
     let visibleButtons = [];
-    const post_menu = "reply|like-count|like|share|flag|edit|bookmark|delete|admin"
-    post_menu.split('|').forEach(i => {
+    siteSettings.post_menu.split('|').forEach(i => {
       const button = this.attachButton(i, attrs);
       if (button) {
         allButtons.push(button);

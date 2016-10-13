@@ -16,7 +16,7 @@
                 <span class="private-message-glyph small">{{fa-icon "envelope"}}</span>
               {{/if}}
 
-              {{text-field id="edit-title" value=buffered.title maxlength=siteSettings.max_topic_title_length autofocus="true"}}
+              {{text-field id="edit-title" value=buffered.title maxlength=siteSettings.max_topic_title_length autofocus="true" class="form-control"}}
               {{#if showCategoryChooser}}
                 <br>
                 {{category-chooser valueAttribute="id" value=buffered.category_id}}
@@ -123,7 +123,7 @@
                     {{! replace "Log In to Reply" with the infobox }}
                     {{signup-cta}}
                   {{else}}
-                    {{topic-footer-buttons topic=model topicDelegated=topicDelegated}}
+                    {{lrqdo-topic-footer-buttons topic=model topicDelegated=topicDelegated}}
                   {{/if}}
 
                   {{#if model.pending_posts_count}}
