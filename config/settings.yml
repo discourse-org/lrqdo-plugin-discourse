@@ -1,4 +1,4 @@
 plugins:
-  override_extra_info:
-    default: false
+  lrqdo_enabled:
+    default: true
     client: true
