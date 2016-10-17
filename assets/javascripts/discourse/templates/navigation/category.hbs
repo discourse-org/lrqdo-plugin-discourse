@@ -1,0 +1,22 @@
+<section class='category-heading'>
+  {{#if category.logo_url}}
+    {{cdn-img src=category.logo_url class="category-logo"}}
+    {{#if category.description}}
+      <p>{{{category.description}}}</p>
+    {{/if}}
+  {{/if}}
+</section>
+
+<div class='m-b-1'>
+  <span class="tag tag-default">
+    {{category.name}}
+  </span>
+
+  {{#if canEditCategory}}
+    {{d-button class="btn-default edit-category" action="editCategory" actionParam=category icon="wrench" label="category.edit_long"}}
+  {{/if}}
+</div>
+
+<div class='category-navigation'>
+  {{lrqdo-navigation-bar navItems=navItems filterMode=filterMode}}
+</div>
