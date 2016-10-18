@@ -23,19 +23,29 @@ body {
     top: 52px !important;
   }
 
-  span.twitter-typeahead .tt-menu {
-    width: calc(100% - 30px);
-    left: 15px;
-    top: 39px;
-    display: block;
-  }
+  span.twitter-typeahead {
 
-  span.twitter-typeahead .tt-menu .fa {
-    margin: 0 5px;
-  }
+    .tt-menu {
+      width: calc(100% - 30px);
+      left: 15px;
+      top: 39px;
+      display: none;
+      &:first-of-type {
+        display: block;
+      }
+    }
 
-  span.twitter-typeahead .tt-menu .topic-statuses {
-    display: inline-block;
+    .tt-menu .fa {
+      margin: 0 5px;
+    }
+
+    .tt-menu .topic-statuses {
+      display: inline-block;
+    }
+
+    .topic-title {
+      margin-right: 5px;
+    }
   }
 
   .card .card-meta-data img {
@@ -253,19 +263,12 @@ aside .list-unstyled {
   }
 }
 
-span.twitter-typeahead > div {
-  display: none;
-  &:first-of-type {
-    display: block;
-  }
-}
-
-.twitter-typeahead .topic-title {
-  margin-right: 5px;
-}
-
 .trigger-user-card {
   .username i.fa.fa-shield {
+    margin: 0 5px;
+  }
+
+  .second.full-name {
     margin: 0 5px;
   }
 
