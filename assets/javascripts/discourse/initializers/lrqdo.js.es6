@@ -30,11 +30,6 @@ export default {
           $('html').removeClass('page-post');
         }
 
-        if (url.substring(0, 6) === '/admin') {
-          $('head').append('<link href="http://laruchequiditoui-templates.sebastienbourdu.com/stylesheets/desktop-ede0d3c91.css" rel="stylesheet" />');
-          $('head').append('<link href="http://laruchequiditoui-templates.sebastienbourdu.com/stylesheets/application-ede0d3c9.css" rel="stylesheet" />');
-        }
-
       });
     })
   }

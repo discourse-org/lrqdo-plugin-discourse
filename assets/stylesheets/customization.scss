@@ -1,0 +1,234 @@
+$turquoise1: #AFE1E1;
+$turquoise2: #056E7D;
+$turquoise3: #18475D;
+$mauve2: #C8325A;
+
+body {
+  margin-top: 0 !important;
+  padding-top: 100px;
+  transition: background-color 500ms linear;
+
+  .alert {
+    margin: 1rem;
+  }
+
+  .show-first > * {
+    display: none;
+  }
+  .show-first > *:first-of-type {
+    display: initial;
+  }
+
+  .dropdown-menu {
+    top: 52px !important;
+  }
+
+  span.twitter-typeahead .tt-menu {
+    width: calc(100% - 30px);
+    left: 15px;
+    top: 39px;
+    display: block;
+  }
+
+  span.twitter-typeahead .tt-menu .fa {
+    margin: 0 5px;
+  }
+
+  span.twitter-typeahead .tt-menu .topic-statuses {
+    display: inline-block;
+  }
+
+  .card .card-meta-data img {
+    margin-right: 0.4rem;
+    border: 1px solid $turquoise1;
+    float: left;
+  }
+
+  body img.emoji {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+
+  .card-block .pull-right {
+    img {
+      object-fit: cover;
+      width: 190px;
+      height: 190px;
+    }
+
+    @media screen and (max-width: 740px) {
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+
+  .dropdown-item-content .fa {
+    float: left;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+
+  .user-meta-data img {
+    margin-right: 0.4rem;
+    border: 1px solid $turquoise1;
+    float: left;
+  }
+
+  .topic-statuses {
+    display: inline-block;
+  }
+
+  .lrqdo-topic-title .fa {
+    font-size: 1.3rem;
+  }
+
+  .posts nav.post-controls .actions {
+    float: none;
+  }
+
+  .posts nav.post-controls {
+
+    a, button {
+      color: $turquoise2;
+      &.d-hover {
+        color: $mauve2 !important;
+        background: transparent !important;
+      }
+      &.create {
+        margin-left: -10px;
+      }
+    }
+
+  }
+
+  .regular.contents {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $turquoise1;
+  }
+
+  .background-soft {
+    background-color: #e6f1f2;
+    color: $turquoise2;
+    margin-top: 44px;
+  }
+
+  #suggested-topics {
+    margin-top: 44px;
+  }
+
+  .user-main .staff-counters {
+    background: transparent;
+
+    &, a {
+      color: $turquoise3;
+    }
+  }
+
+  .user-main .about.collapsed-info .details {
+    background: transparent;
+  }
+
+  .user-main .about .details {
+    background: transparent;
+  }
+
+  .btn-primary {
+    color: white !important;
+  }
+
+  .user-main .deleted-posts {
+    color: white;
+  }
+
+  .user-main .user-content {
+    padding: 30px;
+  }
+
+  .uploaded-image-preview {
+    background: #DDD;
+  }
+
+  .bootbox.modal {
+    position: relative;
+  }
+
+  #save-button-top {
+    margin-bottom: 2rem;
+  }
+
+  .user-preferences .instructions {
+    margin-left: 0;
+  }
+
+  .user-preferences label {
+    font-weight: 500;
+  }
+
+  .badge-notification {
+    background-color: $mauve2;
+    color: white !important;
+    padding: 1px 3px;
+    border-radius: 50%;
+    position: relative;
+    top: -8px;
+  }
+
+  #topic-footer-main-buttons .btn-lg {
+    padding: 0.6rem 2rem;
+  }
+
+  .post-admin-menu.popup-menu .btn {
+    white-space: initial;
+  }
+
+  #topic-footer-main-buttons .popup-menu {
+    bottom: initial !important;
+    width: auto;
+
+    ul {
+      padding: 0;
+      .fa {
+        margin-right: 5px;
+      }
+      .btn {
+        white-space: initial;
+      }
+    }
+  }
+}
+
+html.page-post body {
+  background-color: white;
+  .navbar-fixed-top:not(.navbar-search-focus) {
+    background-color: #e6f1f2;
+    form[role=search] input {
+      background-color: white;
+    }
+  }
+}
+
+#share-link {
+  top: initial !important;
+}
+
+button {
+  background: none;
+}
+
+.category-navigation {
+  margin-bottom: 20px;
+}
+
+.category-breadcrumb .badge-category {
+  padding: 5px;
+  padding: 5px 5px 5px 12px;
+  position: relative;
+  top: 4px;
+}
+
+.fps-select {
+  margin: 5px;
+}
