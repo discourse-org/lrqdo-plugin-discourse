@@ -198,6 +198,18 @@ body {
       }
     }
   }
+
+  .user-main .about.has-background {
+    .details {
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .staff-counters {
+      background: $turquoise3;
+      &, a {
+        color: white;
+      }
+    }
+  }
 }
 
 html.page-post body {
@@ -231,4 +243,16 @@ button {
 
 .fps-select {
   margin: 5px;
+}
+
+aside .list-unstyled {
+  overflow-y: auto;
+  .tag {
+    padding: 0.7rem 0.6rem;
+    font-size: 1rem;
+  }
+}
+
+span.twitter-typeahead > div:last-of-type {
+  display: none;
 }

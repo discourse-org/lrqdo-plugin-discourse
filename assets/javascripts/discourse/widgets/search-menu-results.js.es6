@@ -78,26 +78,7 @@ createWidget('search-menu-results', {
     const results = attrs.results;
     const resultTypes = results.resultTypes || [];
     return resultTypes.map(rt => {
-      const more = [];
-
-      const moreArgs = {
-        className: 'filter',
-        contents: () => [I18n.t('show_more'), ' ', iconNode('chevron-down')]
-      };
-
-      if (rt.moreUrl) {
-        more.push(this.attach('link', $.extend(moreArgs, { href: rt.moreUrl })));
-      } else if (rt.more) {
-        more.push(this.attach('link', $.extend(moreArgs, { action: "moreOfType",
-                                                           actionParam: rt.type,
-                                                           className: "filter filter-type"})));
-      }
-
       const content = [this.attach(rt.componentName, { results: rt.results, term: attrs.term })];
-      if (more.length > 0) {
-        content.push(h('div.tt-suggestion.text-muted', more));
-      }
-
       return h('div.tt-menu.tt-open', content);
     });
   }
