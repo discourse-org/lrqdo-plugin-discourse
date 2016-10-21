@@ -9,14 +9,20 @@ export default {
       const searchInput = "header form[role=search] input";
 
       $(document).on('focusin', searchInput, function() {
-        return $('header > .navbar').addClass('navbar-search-focus');
+        setTimeout(function() {
+          $('header > .navbar').addClass('navbar-search-focus');
+          $('header .twitter-typeahead').show();
+        }, 100);
       });
       $(document).on('focusout', searchInput, function() {
-        return $('header > .navbar').removeClass('navbar-search-focus');
+        setTimeout(function() {
+          $('header > .navbar').removeClass('navbar-search-focus');
+          $('header .twitter-typeahead').hide();
+        }, 100);
       });
 
       $(document).on('click', '.navbar-toggler', function() {
-        return $('#collapsingNavbar').toggleClass('in');
+        $('#collapsingNavbar').toggleClass('in');
       });
 
 
