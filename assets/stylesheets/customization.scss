@@ -2,6 +2,7 @@ $turquoise1: #AFE1E1;
 $turquoise2: #056E7D;
 $turquoise3: #18475D;
 $mauve2: #C8325A;
+$purple: $mauve2;
 
 body {
   margin-top: 0 !important;
@@ -147,6 +148,7 @@ body {
 
   .btn-primary {
     color: white !important;
+    padding: 1rem 2rem;
   }
 
   .user-main .deleted-posts {
@@ -222,16 +224,6 @@ body {
   }
 }
 
-html.page-post body {
-  background-color: white;
-  .navbar-fixed-top:not(.navbar-search-focus) {
-    background-color: #e6f1f2;
-    form[role=search] input {
-      background-color: white;
-    }
-  }
-}
-
 #share-link {
   top: initial !important;
 }
@@ -274,5 +266,188 @@ aside .list-unstyled {
 
   span.user-title {
     margin: 0 5px;
+  }
+}
+
+aside .list-unstyled .tag {
+  font-size: 1rem;
+  font-weight: normal;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0;
+}
+
+.card .tag {
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Sitka Display", Charter, GeorgiaPro, Georgia, "Times New Roman", Times, serif;
+}
+
+.card .card-text {
+  max-width: 560px;
+}
+
+header .extra-info-wrapper {
+  display: none;
+}
+
+.show-more.has-topics {
+  position: initial;
+
+  .alert {
+    margin: 0 0 1rem;
+  }
+}
+
+.navbar-fixed-top {
+  transition: background-color 300ms;
+
+  .nav-link {
+    font-size: 1.2rem;
+  }
+}
+
+.card .card-meta-data {
+  margin: 1rem 0;
+}
+
+.card .card-meta-data .text-muted {
+  line-height: 1.25em;
+}
+
+.card .card-block {
+  border: none;
+}
+
+.card-title:hover {
+  color: $purple;
+}
+
+.fancy-title {
+  font-size: 3.2rem;
+  font-weight: bold;
+  color: $turquoise2;
+}
+
+.cooked, .d-editor-preview {
+  font-size: 1.4rem;
+  line-height: 1.5em;
+  color: rgb(100, 100, 100);
+}
+
+#lrqdo-topic-title {
+  .fa-envelope {
+    display: none;
+  }
+  @media screen and (min-width: 770px) {
+    .topic-status {
+      margin-left: -27px;
+    }
+  }
+}
+
+.trigger-user-card {
+  .username {
+    display: none;
+  }
+  .second.full-name {
+    margin-left: 0;
+  }
+}
+
+#suggested-topics h3 {
+  &:first-of-type {
+    font-family: 'League Gothic';
+    font-size: 3.2rem;
+    color: $turquoise2;
+  }
+
+  &:last-of-type {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, system, "Helvetica Neue", Helvetica, Arial;
+    > a:not(.badge-wrapper) {
+      text-decoration: underline;
+    }
+  }
+}
+
+.badge-wrapper.bar {
+  @extend .tag;
+  @extend .tag-default;
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: normal;
+
+  &:hover {
+    background-color: $purple !important;
+    color: white !important;
+  }
+
+  span.badge-category {
+    color: inherit !important;
+  }
+
+  .badge-category-bg, .badge-category-parent-bg {
+    display: none !important;
+  }
+}
+
+#lrqdo-topic-title .topic-statuses {
+  margin-left: -12px;
+}
+
+aside .list-unstyled {
+  &:not(.list-expanded) {
+    li:nth-child(n+6) {
+      display: none;
+    }
+  }
+}
+
+.navbar-fixed-top:not(.navbar-search-focus) {
+  background-color: $turquoise2;
+
+  a, .navbar-brand {
+    color: white;
+  }
+
+  .dropdown-menu {
+    a {
+      color: $turquoise2;
+      &:hover {
+        color: #262626;
+      }
+    }
+  }
+
+  form[role=search] {
+    color: $turquoise2;
+  }
+
+  .form-control-lg, .input-group-lg > .form-control,
+  .input-group-lg > .input-group-addon,
+  .input-group-lg > .input-group-btn > .btn {
+    background-color: #1b475c;
+    padding: 1rem 1.5rem;
+
+    &::-webkit-input-placeholder {
+      color: $turquoise2;
+    }
+    &:-moz-placeholder {
+      color: $turquoise2;
+    }
+    &::-moz-placeholder {
+      color: $turquoise2;
+    }
+    &:-ms-input-placeholder {
+      color: $turquoise2;
+    }
+  }
+
+  .btn-primary:hover {
+    background-color: darken($turquoise3, 5%);
+    border-color: darken($turquoise3, 5%);
   }
 }
