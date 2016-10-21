@@ -272,7 +272,7 @@ export default createWidget('header', {
 
     return h('nav.navbar.navbar-fixed-top', [
         h("div.navbar-mobile", [ h("a.navbar-brand.hidden-lg-up", {"attributes":{"href":"/"}},
-          [ h("img", {"attributes":{"src":"/assets/images/logo-white.svg", "width":"44px", "height":"42px"}}, [ "Le forum" ]) ]),
+          [ h("img", {"attributes":{"src":"/plugins/lrqdo/images/logo-white.svg", "width":"44px", "height":"42px"}}, [ "Le forum" ]) ]),
           h("button.pull-right.navbar-toggler.hidden-lg-up",
           {"attributes":{"aria-controls":"collapsingNavbar","aria-expanded":"false","aria-label":"Toggle navigation","type":"button"},
           "dataset":{"target":"#collapsingNavbar","toggle":"collapse"}}, [ "☰" ]) ]),
