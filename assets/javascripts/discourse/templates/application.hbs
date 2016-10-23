@@ -7,19 +7,21 @@
               logout="logout"
               showSearchHelp="showSearchHelp"}}
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8 offset-md-1 col-lg-6 offset-lg-2">
-      {{#if showTop}}
-        {{custom-html "top"}}
-      {{/if}}
-      {{global-notice}}
-      {{create-topics-notice}}
+<div id="main-outlet">
+  <div id="main-outlet" class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 offset-md-1 col-lg-6 offset-lg-2">
+        {{#if showTop}}
+          {{custom-html "top"}}
+        {{/if}}
+        {{global-notice}}
+        {{create-topics-notice}}
+      </div>
     </div>
   </div>
+  {{outlet}}
+  {{render "user-card"}}
 </div>
-{{outlet}}
-{{render "user-card"}}
 
 {{plugin-outlet "above-footer"}}
 {{#if showFooter}}

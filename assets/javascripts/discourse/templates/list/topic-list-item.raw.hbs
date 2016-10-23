@@ -15,14 +15,14 @@
     <div class="card-meta-data">
       <span class="show-first">
         {{#each topic.posters as |poster|}}
-          <a href="/users/{{poster.user.username}}">
+          <a href="{{poster.user.username}}" data-user-card="{{poster.user.username}}">
             {{avatar poster avatarTemplatePath="user.avatar_template" usernamePath="user.username" imageSize="large" extraClasses="img-circle pull-left"}}
           </a>
         {{/each}}
       </span>
       <span class="show-first">
         {{#each topic.posters as |poster|}}
-          <a href="/users/{{poster.user.username}}" data-auto-route="true" data-user-card="{{poster.user.username}}">
+          <a href="/users/{{poster.user.username}}" data-user-card="{{poster.user.username}}">
             <strong>
               {{poster.user.username}}
             </strong>

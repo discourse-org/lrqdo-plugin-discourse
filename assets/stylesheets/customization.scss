@@ -451,3 +451,17 @@ html.page-post body {
 html {
   overflow-y: scroll;
 }
+
+.nav-inline-lg a {
+  font-weight: 600;
+}
+
+.submit-panel, .usercard-controls {
+  .btn-primary .fa {
+    margin-right: 10px;
+  }
+}
+
+#reply-control .contents .form-element .select2-container a {
+  height: 39px;
+}
