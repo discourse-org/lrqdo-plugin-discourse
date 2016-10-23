@@ -1,3 +1,7 @@
 en:
   site_settings:
     lrqdo_enabled: "La Ruche qui dit oui"
+    topic_list_excerpt_length: "Character length of topic excerpts."
+    topic_list_thumbnail_width: "Width of topic preview thumbnail."
+    topic_list_thumbnail_height: "Height of topic preview thumbnail."
+    topic_list_hotlink_thumbnails: "Use topic image_url in thumbnails directly, rather than generated thumbnails. Warning: this means each full sized topic image will be loaded when the topic list loads and will affect performance."

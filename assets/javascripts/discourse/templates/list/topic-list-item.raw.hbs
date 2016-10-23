@@ -1,8 +1,8 @@
 <div class="card">
   <div class="card-block">
-    {{#if topic.image_url}}
+    {{#if topic.thumbnails}}
       <div class="pull-right m-l-1">
-        <img src="{{topic.image_url}}" alt="" width="190px" height="190px" />
+        <img src="{{topic.thumbnails.normal}}" alt="" width="190px" height="190px" />
       </div>
     {{/if}}
     <a href="{{topic.url}}">

@@ -2,3 +2,15 @@ plugins:
   lrqdo_enabled:
     default: false
     client: true
+  topic_list_excerpt_length:
+    default: 200
+    client: true
+  topic_list_thumbnail_width:
+    default: 190
+    client: true
+  topic_list_thumbnail_height:
+    default: 190
+    client: true
+  topic_list_hotlink_thumbnails:
+    default: false
+    client: true
