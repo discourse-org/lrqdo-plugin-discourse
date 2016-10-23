@@ -5,13 +5,7 @@
         <img src="{{topic.thumbnails.normal}}" alt="" width="190px" height="190px" />
       </div>
     {{/if}}
-    <a href="{{topic.url}}">
-      <h2 class="card-title">
-        <strong>
-          {{topic.title}}
-        </strong>
-      </h2>
-    </a>
+    {{topic-link topic}}
     <div class="card-meta-data">
       <span class="show-first">
         {{#each topic.posters as |poster|}}
