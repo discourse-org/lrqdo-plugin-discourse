@@ -6,6 +6,9 @@
       </div>
     {{/if}}
     {{topic-link topic}}
+    {{#if showTopicPostBadges}}
+      {{raw "topic-post-badges" unread=topic.unread newPosts=topic.displayNewPosts unseen=topic.unseen url=topic.lastUnreadUrl}}
+    {{/if}}
     <div class="card-meta-data">
       <span class="show-first">
         {{#each topic.posters as |poster|}}
@@ -42,7 +45,7 @@
         {{{topic.excerpt}}}
         {{#if topic.excerptTruncated}}
           <br />
-          <a href="{{topic.url}}">
+          <a href="{{topic-link-path topic}}">
             <strong>
               {{i18n 'read_more'}}
             </strong>
@@ -52,7 +55,7 @@
     {{/if}}
     <ul class="list-inline m-b-0">
       <li class="list-inline-item font-weight-bold">
-        <a href="{{topic.url}}">
+        <a href="{{topic-link-path topic}}">
           {{topic.replyCount}}
           <span class="action">
             Répondre
@@ -61,7 +64,7 @@
       </li>
       {{#if showPosters}}
         <li class="list-inline-item font-weight-bold">
-          <a href="{{topic.url}}">
+          <a href="{{topic-link-path topic}}">
             <i class="fa fa-heart-o"></i>
             {{topic.posters.length}}
           </a>
