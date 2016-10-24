@@ -1,19 +1,21 @@
 <div class="card">
   <div class="card-block">
     {{#if topic.thumbnails}}
-      <div class="pull-right m-l-1">
+      <div class="pull-xs-right m-l-1">
         <img src="{{topic.thumbnails.normal}}" alt="" width="190px" height="190px" />
       </div>
     {{/if}}
-    {{topic-link topic}}
     {{#if showTopicPostBadges}}
-      {{raw "topic-post-badges" unread=topic.unread newPosts=topic.displayNewPosts unseen=topic.unseen url=topic.lastUnreadUrl}}
+      <div class="pull-xs-right m-l-1">
+        {{raw "topic-post-badges" unread=topic.unread newPosts=topic.displayNewPosts unseen=topic.unseen url=topic.lastUnreadUrl}}
+      </div>
     {{/if}}
+    {{topic-link topic}}
     <div class="card-meta-data">
       <span class="show-first">
         {{#each topic.posters as |poster|}}
           <a href="{{poster.user.username}}" data-user-card="{{poster.user.username}}">
-            {{avatar poster avatarTemplatePath="user.avatar_template" usernamePath="user.username" imageSize="large" extraClasses="img-circle pull-left"}}
+            {{avatar poster avatarTemplatePath="user.avatar_template" usernamePath="user.username" imageSize="large" extraClasses="img-circle pull-xs-left"}}
           </a>
         {{/each}}
       </span>
@@ -83,139 +85,4 @@
       {{/unless}}
     </ul>
   </div>
-  {{#if topic.comments}}
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item list-group-item-sm">
-      <a href="#">
-        <strong>
-          voir les autres commentaires
-        </strong>
-      </a>
-    </li>
-    <li class="list-group-item p-y-1">
-      <a href="#">
-        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
-      </a>
-      <div class="pushed-content">
-        <a href="#">
-          <strong>
-            Clem.75
-          </strong>
-        </a>
-         uptatiis vendi ut vellibus ma namus mincit que sequaspition exerionse moluptaserae porese quo dest ma aut labore verit quo voluptatum ipid dolores…
-        <br />
-        <a class="see-more" href="#">
-          <strong>
-            Voir plus
-          </strong>
-        </a>
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="#">
-              <strong>
-                Répondre
-              </strong>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">
-              <strong>
-                Aimer
-              </strong>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            il y a 30 minutes
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="list-group-item p-y-1">
-      <a href="#">
-        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
-      </a>
-      <div class="pushed-content">
-        <a href="#">
-          <strong>
-            Clem.75
-          </strong>
-        </a>
-         uptatiis vendi ut vellibus ma namus mincit que sequaspition exerionse moluptaserae porese quo dest ma aut labore verit quo voluptatum ipid dolores…
-        <br />
-        <a class="see-more" href="#">
-          <strong>
-            Voir plus
-          </strong>
-        </a>
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="#">
-              <strong>
-                Répondre
-              </strong>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">
-              <strong>
-                Aimer
-              </strong>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            il y a 30 minutes
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="list-group-item p-y-1">
-      <a href="#">
-        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
-      </a>
-      <div class="pushed-content">
-        <a href="#">
-          <strong>
-            Clem.75
-          </strong>
-        </a>
-         uptatiis vendi ut vellibus ma namus mincit que sequaspition exerionse moluptaserae porese quo dest ma aut labore verit quo voluptatum ipid dolores…
-        <br />
-        <a class="see-more" href="#">
-          <strong>
-            Voir plus
-          </strong>
-        </a>
-        <ul class="list-inline">
-          <li class="list-inline-item">
-            <a href="#">
-              <strong>
-                Répondre
-              </strong>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            <a href="#">
-              <strong>
-                Aimer
-              </strong>
-            </a>
-          </li>
-          <li class="list-inline-item">
-            il y a 30 minutes
-          </li>
-        </ul>
-      </div>
-    </li>
-    <li class="list-group-item p-y-1 list-group-item-btn">
-      <a href="{{topic.url}}">
-        <img class="img-circle pull-left" src="http://laruchequiditoui.sebastienbourdu.com/user_avatar/laruchequiditoui.sebastienbourdu.com/ekkans/30/5_1.png" alt="" width="30px" height="30px" />
-        <div class="pushed-content">
-          <strong>
-            Répondre à cette discussion
-          </strong>
-        </div>
-      </a>
-    </li>
-  </ul>
-  {{/if}}
 </div>
