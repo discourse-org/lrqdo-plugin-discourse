@@ -3,6 +3,8 @@ $turquoise2: #056E7D;
 $turquoise3: #18475D;
 $mauve2: #C8325A;
 $purple: $mauve2;
+$mauve3: #960032;
+$purple3: $mauve3;
 
 body {
   margin-top: 0 !important;
@@ -464,4 +466,161 @@ html {
 
 #reply-control .contents .form-element .select2-container a {
   height: 39px;
+}
+
+.container-fluid {
+  max-width: 1140px;
+}
+
+.navbar-mobile button.pull-right {
+  color: white;
+}
+
+.posts .topic-avatar {
+  padding-top: 5px;
+}
+
+.card-block {
+  padding: 1.2rem 2rem;
+}
+.navbar-fixed-top .btn {
+  padding: 13px 29px;
+  font-size: 1rem;
+}
+.navbar-fixed-top .nav-link{
+  font-size: 1rem;
+}
+
+h3, .h3 {
+  font-size: 1.4rem;
+}
+
+.nav-inline {
+  margin-bottom: 1rem;
+}
+
+
+.card .card-text {
+  max-width: 100%;
+}
+
+.navbar {
+  padding: 0.5rem 0 0.4rem 0;
+}
+
+.navbar-fixed-top .img-circle {
+  margin: 0;
+  border: 2px solid #18475D;
+}
+
+
+.card {
+  position: relative;
+  display: block;
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+  border-radius: 0;
+  border: 0px solid transparent;
+}
+.card .card-text {
+  color: $turquoise3;
+  line-height: 1.5em;
+}
+.cooked, .d-editor-preview {
+  font-size: 1.4rem;
+  line-height: 1.5em;
+  color: $turquoise3;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.m-y-2 a {
+  color: $turquoise2;
+}
+
+.card-meta-data, .card-meta-data a, .trigger-user-card, .trigger-user-card a {
+  color: $turquoise2;
+}
+.m-y-2 .small{
+  font-size:100%;
+}
+
+.cooked a {
+  color: $purple3;
+}
+.cooked a:hover {
+  color: $mauve2;
+}
+
+a.mention,a.mention-group, .list-tags {
+  padding: 0;
+  color: #960032;
+  background: transparent;
+  border-radius: 0;
+  font-weight: normal;
+  font-size: 1em;
+}
+
+.discourse-tag.box {
+  background-color: transparent;
+  color: $purple3;
+  padding: 0;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.discourse-tag:visited, .discourse-tag:hover {
+  color: $mauve2;
+}
+
+.discourse-tag {
+  padding: 0;
+  margin: 0 5px 0 0;
+  color: $purple3;
+}
+
+.posts nav.post-controls .highlight-action {
+  color: $turquoise2;
+}
+
+.posts nav.post-controls button{
+  font-size:1rem;
+  font-weight:bolder;
+}
+
+body .regular.contents {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #afe1e1;
+}
+
+#topic-closing-info{
+  border:0;
+}
+
+.user-activity-page .col-md-8.offset-md-1.col-lg-6.offset-lg-2 {
+  width: 100%;
+  margin-left: 0;
+}
+
+.fancy-title{
+  line-height:1.15em;
+}
+
+h1.m-b-0{
+  margin-bottom:0.5rem !important;
+}
+
+body .card .card-meta-data img, body .user-meta-data img {
+  border: 2px solid $turquoise1;
+}
+
+.trigger-user-card {
+  .second {
+    display: none;
+  }
+  .fa {
+    margin: 0 5px;
+  }
 }

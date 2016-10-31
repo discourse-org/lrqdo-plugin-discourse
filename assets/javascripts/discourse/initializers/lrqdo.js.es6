@@ -32,6 +32,11 @@ export default {
 
         if (url.substring(0, 3) === '/t/') {
           $('html').addClass('page-post');
+          if (url.substr(url.length - 5) === '/last') {
+            $(document).on('DOMNodeInserted', '.post-stream', function () {
+              $('#topic-footer-main-buttons button.create').trigger('click');
+            });
+          }
         } else {
           $('html').removeClass('page-post');
         }
