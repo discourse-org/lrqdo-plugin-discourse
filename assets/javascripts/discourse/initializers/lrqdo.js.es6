@@ -35,6 +35,7 @@ export default {
           if (url.substr(url.length - 5) === '/last') {
             $(document).on('DOMNodeInserted', '.post-stream', function () {
               $('#topic-footer-main-buttons button.create').trigger('click');
+              $(document).off('DOMNodeInserted', '.post-stream');
             });
           }
         } else {
