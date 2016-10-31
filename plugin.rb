@@ -14,6 +14,7 @@ after_initialize do
   Category.register_custom_field_type('list_thumbnails', :boolean)
   Category.register_custom_field_type('list_excerpts', :boolean)
   Topic.register_custom_field_type('thumbnails', :json)
+  Topic.register_custom_field_type('author', :json)
 
   @nil_thumbs = TopicCustomField.where( name: 'thumbnails', value: nil )
   if @nil_thumbs.length
@@ -85,7 +86,8 @@ after_initialize do
   require 'topic_list_item_serializer'
   class ::TopicListItemSerializer
     attributes :thumbnails,
-               :topic_post_id
+               :topic_post_id,
+               :author
 
     def first_post_id
      first = Post.find_by(topic_id: object.id, post_number: 1)
@@ -143,10 +145,22 @@ after_initialize do
       Post.find(topic_post_id)
     end
 
+    def author
+      user = topic_post.user
+      author = { name: user.name, title: user.title,
+                 avatar_url: user.avatar_template_url.gsub("{size}", "45") }
+      author
+    end
+
+    def include_author?
+      true
+    end
+
   end
 
   TopicList.preloaded_custom_fields << "accepted_answer_post_id" if TopicList.respond_to? :preloaded_custom_fields
   TopicList.preloaded_custom_fields << "thumbnails" if TopicList.respond_to? :preloaded_custom_fields
+  TopicList.preloaded_custom_fields << "author" if TopicList.respond_to? :preloaded_custom_fields
 
   add_to_serializer(:basic_category, :list_excerpts) {object.custom_fields["list_excerpts"]}
   add_to_serializer(:basic_category, :list_thumbnails) {object.custom_fields["list_thumbnails"]}

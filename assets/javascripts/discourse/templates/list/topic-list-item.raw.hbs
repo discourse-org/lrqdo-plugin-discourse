@@ -2,7 +2,7 @@
   <div class="card-block">
     {{#if topic.thumbnails}}
       <div class="pull-xs-right m-l-1">
-        <img src="{{topic.thumbnails.normal}}" alt="" width="190px" height="190px" />
+        <img src="{{topic.thumbnails.normal}}" alt="" width="190" height="190" />
       </div>
     {{/if}}
     {{#if showTopicPostBadges}}
@@ -12,31 +12,25 @@
     {{/if}}
     {{topic-link topic}}
     <div class="card-meta-data">
-      <span class="show-first">
-        {{#each topic.posters as |poster|}}
-          <a href="{{poster.user.username}}" data-user-card="{{poster.user.username}}">
-            {{avatar poster avatarTemplatePath="user.avatar_template" usernamePath="user.username" imageSize="large" extraClasses="img-circle pull-xs-left"}}
-          </a>
-        {{/each}}
+      <span>
+        <a href="{{topic.author.name}}" data-user-card="{{topic.author.name}}">
+          <img alt="Avatar" width="45" height="45" src="{{topic.author.avatar_url}}" class="avatar" />
+        </a>
       </span>
-      <span class="show-first">
-        {{#each topic.posters as |poster|}}
-          <a href="/users/{{poster.user.username}}" data-user-card="{{poster.user.username}}">
-            <strong>
-              {{poster.user.username}}
-            </strong>
-          </a>
-        {{/each}}
+      <span>
+        <a href="/users/{{topic.author.username}}" data-user-card="{{topic.author.username}}">
+          <strong>
+            {{topic.author.name}}
+          </strong>
+        </a>
       </span>
-      <span class="show-first">
-        {{#each topic.posters as |poster|}}
-          {{#if topic.user.title}}
-            <span class="separator">–</span>
-            <span>
-              {{poster.user.title}}
-            <span>
-          {{/if}}
-        {{/each}}
+      <span>
+        {{#if topic.author.title}}
+          <span class="separator">–</span>
+          <span>
+            {{topic.author.title}}
+          <span>
+        {{/if}}
       </span>
       <div class="text-muted">
         {{format-date topic.created_at leaveAgo="true"}}
