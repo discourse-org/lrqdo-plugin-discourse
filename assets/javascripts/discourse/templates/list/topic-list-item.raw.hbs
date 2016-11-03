@@ -13,12 +13,12 @@
     {{topic-link topic}}
     <div class="card-meta-data">
       <span>
-        <a href="{{topic.author.name}}" data-user-card="{{topic.author.name}}">
+        <a class="trigger-user-card" href="/users/{{topic.author.username}}" data-user-card="{{topic.author.username}}">
           <img alt="Avatar" width="45" height="45" src="{{topic.author.avatar_url}}" class="avatar" />
         </a>
       </span>
       <span>
-        <a href="/users/{{topic.author.username}}" data-user-card="{{topic.author.username}}">
+        <a class="trigger-user-card" href="/users/{{topic.author.username}}" data-user-card="{{topic.author.username}}">
           <strong>
             {{topic.author.name}}
           </strong>

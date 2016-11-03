@@ -1,6 +1,6 @@
 # name: lrqdo
 # about: La ruche qui dit oui
-# version: 0.0.5
+# version: 0.0.6
 # authors: Sébastien Bourdu
 # url: https://github.com/ekkans/lrqdo-plugin-discourse
 
@@ -147,7 +147,7 @@ after_initialize do
 
     def author
       user = topic_post.user
-      author = { name: user.name, title: user.title,
+      author = { name: user.name, title: user.title, username: user.username,
                  avatar_url: user.avatar_template_url.gsub("{size}", "45") }
       author
     end

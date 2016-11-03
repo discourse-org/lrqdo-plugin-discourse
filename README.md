@@ -21,7 +21,7 @@ Point your browser to:
 
 ```
 cd /var/discourse
-vi container/app.yml
+vi containers/app.yml
 ```
 
 Add the following to your app.yml in the plugins section:

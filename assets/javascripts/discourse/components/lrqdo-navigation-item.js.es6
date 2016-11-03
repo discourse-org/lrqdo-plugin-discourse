@@ -1,8 +1,8 @@
 import computed from "ember-addons/ember-computed-decorators";
-import StringBuffer from 'discourse/mixins/string-buffer';
 import DiscourseURL from 'discourse/lib/url';
+import { bufferedRender } from 'discourse-common/lib/buffered-render';
 
-export default Ember.Component.extend(StringBuffer, {
+export default Ember.Component.extend(bufferedRender({
   tagName: 'a',
   classNameBindings: [':nav-link', 'active', 'content.hasIcon:has-icon'],
   attributeBindings: ['title', 'href'],
@@ -28,7 +28,7 @@ export default Ember.Component.extend(StringBuffer, {
            filterMode.indexOf(contentFilterMode) === 0;
   },
 
-  renderString(buffer) {
+  buildBuffer(buffer) {
     const content = this.get('content');
     buffer.push(this.get('content.displayName'));
   },
@@ -38,4 +38,4 @@ export default Ember.Component.extend(StringBuffer, {
     DiscourseURL.routeTo(this.get('href'));
     return true;
   }
-});
+}));

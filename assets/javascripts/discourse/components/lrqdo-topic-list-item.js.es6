@@ -1,4 +1,4 @@
-import StringBuffer from 'discourse/mixins/string-buffer';
+import { bufferedRender } from 'discourse-common/lib/buffered-render';
 
 export function showEntrance(e) {
   let target = $(e.target);
@@ -15,18 +15,24 @@ export function showEntrance(e) {
   }
 }
 
-export default Ember.Component.extend(StringBuffer, {
+export default Ember.Component.extend(bufferedRender({
   rerenderTriggers: ['bulkSelectEnabled', 'topic.pinned'],
   tagName: 'div',
-  rawTemplate: 'list/topic-list-item.raw',
   classNameBindings: [':topic-list-item', 'unboundClassNames'],
   attributeBindings: ['data-topic-id'],
   'data-topic-id': Em.computed.alias('topic.id'),
 
   actions: {
     toggleBookmark() {
-      this.get('topic').toggleBookmark().finally(() => this.rerender());
+      this.get('topic').toggleBookmark().finally(() => this.rerenderBuffer());
     }
+  },
+
+  buildBuffer(buffer) {
+    const template = Discourse.__container__.lookup('template:list/topic-list-item.raw');
+    if (template) {
+      buffer.push(template(this));
+     }
   },
 
   unboundClassNames: function() {
@@ -141,4 +147,4 @@ export default Ember.Component.extend(StringBuffer, {
     }
   }.on('didInsertElement')
 
-});
+}));

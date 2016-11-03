@@ -190,27 +190,41 @@ body {
     top: -8px;
   }
 
-  #topic-footer-main-buttons .btn-lg {
-    padding: 0.6rem 2rem;
+  #topic-footer-buttons {
+    .widget-button.no-text {
+      float: right;
+    }
+
+    .btn:not(.widget-button):not(.create), .pinned-options, .notification-options {
+       display: none;
+    }
+
+    .btn-lg {
+      padding: 0.6rem 2rem;
+    }
+
+    .fa-reply:before {
+      content: "\f075";
+    }
+
+    .popup-menu {
+      bottom: initial !important;
+      width: auto;
+
+      ul {
+        padding: 0;
+        .fa {
+          margin-right: 5px;
+        }
+        .btn {
+          white-space: initial;
+        }
+      }
+    }
   }
 
   .post-admin-menu.popup-menu .btn {
     white-space: initial;
-  }
-
-  #topic-footer-main-buttons .popup-menu {
-    bottom: initial !important;
-    width: auto;
-
-    ul {
-      padding: 0;
-      .fa {
-        margin-right: 5px;
-      }
-      .btn {
-        white-space: initial;
-      }
-    }
   }
 
   .user-main .about.has-background {
@@ -599,11 +613,6 @@ body .regular.contents {
   border:0;
 }
 
-.user-activity-page .col-md-8.offset-md-1.col-lg-6.offset-lg-2 {
-  width: 100%;
-  margin-left: 0;
-}
-
 .fancy-title{
   line-height:1.15em;
 }
@@ -623,4 +632,47 @@ body .card .card-meta-data img, body .user-meta-data img {
   .fa {
     margin: 0 5px;
   }
+}
+
+.m-y-2 {
+  font-size:1.2rem;
+  line-height:1.25em;
+}
+
+aside.quote blockquote {
+  font-size: 1.2rem;
+  line-height: 1.25em;
+}
+
+blockquote, aside.quote .title {
+  border-left: 5px solid $turquoise1;
+  background-color: rgba($turquoise1,0.2);
+  color: $turquoise3;
+}
+
+aside.quote .title {
+  font-weight:bolder;
+  color: $turquoise2;
+  font-size: 1.2rem;
+}
+
+.m-y-2 a:focus,.m-y-2 a:hover {
+  color: #C8325A;
+  text-decoration: none;
+}
+
+.quote-controls, .quote-controls .back:before, .quote-controls .quote-other-topic:before {
+  color: $turquoise2;
+}
+
+.quote-button.visible {
+  display: block;
+}
+
+.user-right.messages .list-actions {
+  display: none;
+}
+
+.badge-notification.new-topic {
+  color: #28779b !important;
 }
