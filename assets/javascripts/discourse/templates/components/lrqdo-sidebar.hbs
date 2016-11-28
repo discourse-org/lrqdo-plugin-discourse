@@ -17,7 +17,7 @@
   </h6>
 
   <ul class="list-unstyled">
-    {{#each category in categories}}
+    {{#each categories as |category|}}
       <li>
         <a href="{{category.url}}">
           <span class="tag tag-default">
