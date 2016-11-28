@@ -676,3 +676,58 @@ aside.quote .title {
 .badge-notification.new-topic {
   color: #28779b !important;
 }
+
+.quote-button{
+  background-color: $mauve2;
+}
+
+.quote-button:hover{
+  background-color: $mauve3;
+}
+.btn-danger , div.poll .poll-buttons button.btn-danger {
+  background-color: $mauve2;
+  border-color:$mauve2;
+  color:white;
+}
+.btn-danger:hover{
+  background-color: $mauve3;
+  border-color:$mauve3;
+
+}
+
+div.poll .poll-info{
+  color:$turquoise2;
+
+}
+div.poll .poll-buttons button{
+  color:$mauve2;
+}
+
+div.poll li{
+  font-size:1.2rem;
+}
+
+aside.onebox {
+  border-color:$mauve2;
+}
+a.reply-to-tab {
+  margin-top: 15px;
+  display: block;
+}
+a.reply-to-tab span, a.reply-to-tab i {
+  color:$turquoise3;
+}
+img.avatar{
+  border: 1px solid $turquoise1;
+}
+
+.badge-notification.clicks{
+  background-color: $mauve2;
+}
+
+.dropdown-menu.dropdown-menu-right .dropdown-item:not(.widget-link) {
+  background-color: #ebf3f5;
+  &.read {
+    background-color: white;
+  }
+}
