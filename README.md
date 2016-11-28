@@ -41,7 +41,3 @@ and rebuild docker via
 ```
 ./launcher rebuild app
 ```
-
-## Discourse configuration
-
-post_menu = "reply|like-count|like|share|flag|edit|bookmark|delete|admin"
