@@ -71,19 +71,12 @@ export default createWidget('header-search', {
     const contextEnabled = state.contextEnabled;
 
     const ctx = contextEnabled ? this.searchContext() : null;
-    const type = Ember.get(ctx, 'type');
-
-    if (contextEnabled && type === 'topic') {
-      return;
-    }
 
     let url = '/search?q=' + encodeURIComponent(state.term);
     if (contextEnabled) {
       if (ctx.id.toString().toLowerCase() === this.currentUser.username_lower &&
           type === "private_messages") {
         url += ' in:private';
-      } else {
-        url += encodeURIComponent(" " + type + ":" + ctx.id);
       }
     }
 
