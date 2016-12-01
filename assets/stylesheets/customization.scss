@@ -731,3 +731,131 @@ img.avatar{
     background-color: white;
   }
 }
+
+#reply-control.invisible .contents .d-editor-preview {
+  visibility: hidden;
+}
+
+body img[title=emoji] {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.card .pull-xs-right img {
+  width: auto;
+  height: auto;
+  max-width: 190px;
+  max-height: 190px;
+}
+
+.full-width, .lattice-show {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.user-table {
+  &, .wrapper {
+    display: block;
+  }
+}
+
+.form-horizontal input, .form-horizontal textarea, .form-horizontal select,  .form-horizontal .input-prepend, .form-horizontal .input-append {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.form-horizontal .hide {
+  display: none;
+}
+
+.form-horizontal {
+  .control-group {
+    margin-bottom: 18px;
+    &:before {
+      display: table;
+      content: "";
+    }
+    &:after {
+      display: table;
+      content: "";
+      clear: both;
+    }
+  }
+  .control-indent {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  .control-label {
+    float: left;
+    width: 140px;
+    text-align: right;
+    font-weight: bold;
+  }
+  .controls {
+    margin-left: 160px;
+
+    .select2-container-multi {
+      margin-left: -160px;
+    }
+  }
+}
+
+.topic-category a.badge-wrapper.bar:not(:first-of-type) {
+  display: none;
+}
+
+.dropdown-menu.dropdown-menu-right > .dropdown-item {
+  background: white !important;
+}
+
+.dropdown-menu.dropdown-menu-right .dropdown-item p > span {
+  font-weight: 500;
+}
+
+#lrqdo-topic-title .fa-envelope {
+  display: inline-block;
+}
+
+#editor blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 12px;
+}
+
+#lrqdo-topic-title i.fa.fa-thumb-tack {
+  width: 76px;
+  &:not(.unpinned) {
+    text-align: right;
+  }
+}
+
+span.btn-group.notification-options {
+  display: block !important;
+  margin-top: 1rem;
+
+  .fa {
+    color: black;
+    margin-right: 5px;
+  }
+
+  p {
+    display: none !important;
+  }
+
+  .dropdown-menu {
+    box-shadow: none;
+    border: none;
+    margin-top: -1rem;
+    a {
+      cursor: pointer;
+      background: white;
+      border: 1px solid #f4f4f4;
+      &:hover {
+        background: #f4f4f4 !important;
+      }
+    }
+  }
+}
