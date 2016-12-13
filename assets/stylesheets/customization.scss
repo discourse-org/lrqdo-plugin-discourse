@@ -898,3 +898,10 @@ img.avatar[src=''] {
 .post-info.edits a {
   cursor: pointer;
 }
+
+.card .topic-statuses {
+  float: left;
+  i {
+    margin-right: 5px;
+  }
+}
