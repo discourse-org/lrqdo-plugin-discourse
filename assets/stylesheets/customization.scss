@@ -468,7 +468,7 @@ html {
   overflow-y: scroll;
 }
 
-.nav-inline-lg a {
+.nav-inline-lg a.active-unread {
   font-weight: 600;
 }
 
@@ -803,7 +803,11 @@ body img[title=emoji] {
   }
 }
 
-.topic-category a.badge-wrapper.bar:not(:first-of-type) {
+.topic-category a.badge-wrapper.bar:not(:last-of-type) {
+  display: none;
+}
+
+#lrqdo-topic-title .list-tags .discourse-tag {
   display: none;
 }
 
@@ -889,4 +893,8 @@ body img[title=emoji] {
 
 img.avatar[src=''] {
   display: none;
+}
+
+.post-info.edits a {
+  cursor: pointer;
 }

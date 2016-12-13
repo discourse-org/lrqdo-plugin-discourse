@@ -30,6 +30,13 @@ export default {
 
         $('header').addClass('d-header');
 
+        const $unread = $("a[href='/unread']");
+        if ($unread.length > 0) {
+          if ($unread.text().split('(').length > 1) {
+            $unread.addClass('active-unread');
+          }
+        }
+
         if (url.substring(0, 3) === '/t/') {
           $('html').addClass('page-post');
           if (url.substr(url.length - 5) === '/last') {
