@@ -331,7 +331,8 @@ export default createWidget('header', {
   createTopic() {
     this.container.lookup('controller:composer').open({
       action: Composer.CREATE_TOPIC,
-      draftKey: Composer.CREATE_TOPIC
+      draftKey: Composer.CREATE_TOPIC,
+      categoryId: $('[data-composer-category-id]').data('composer-category-id')
      });
   },
 

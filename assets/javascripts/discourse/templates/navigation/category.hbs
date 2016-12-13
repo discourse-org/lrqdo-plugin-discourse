@@ -19,6 +19,17 @@
   {{#if currentUser}}
     {{category-notifications-button category=category}}
   {{/if}}
+
+  <div hidden data-composer-category-id="{{category.id}}">
+    {{#if canCreateTopic}}
+      {{d-button  id="create-topic"
+                  class="btn-default"
+                  action="createTopic"
+                  icon="plus"
+                  label="topic.create"
+                  disabled=cannotCreateTopicOnCategory}}
+    {{/if}}
+  </div>
 </div>
 
 <div class='category-navigation'>
