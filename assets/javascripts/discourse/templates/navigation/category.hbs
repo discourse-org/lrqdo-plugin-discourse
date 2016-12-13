@@ -15,6 +15,10 @@
   {{#if canEditCategory}}
     {{d-button class="btn-default edit-category" action="editCategory" actionParam=category icon="wrench" label="category.edit_long"}}
   {{/if}}
+
+  {{#if currentUser}}
+    {{category-notifications-button category=category}}
+  {{/if}}
 </div>
 
 <div class='category-navigation'>

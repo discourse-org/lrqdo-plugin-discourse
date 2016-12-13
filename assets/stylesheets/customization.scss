@@ -832,9 +832,11 @@ body img[title=emoji] {
   }
 }
 
-span.btn-group.notification-options {
-  display: block !important;
-  margin-top: 1rem;
+.btn-group.notification-options {
+  .posts & {
+    display: block !important;
+    margin-top: 1rem;
+  }
 
   .fa {
     color: black;
@@ -849,13 +851,42 @@ span.btn-group.notification-options {
     box-shadow: none;
     border: none;
     margin-top: -1rem;
+    .icon {
+      margin-top: 3px;
+      float: left;
+      font-size: 1.286em;
+    }
+    span.title {
+      font-weight: bold;
+      display: block;
+      font-size: 1em;
+      color: $primary;
+    }
+    span {
+      font-size: 0.857em;
+      color: #919191;
+    }
     a {
+      display: block;
+      padding: 9px;
+      clear: both;
+      font-weight: normal;
+      line-height: 18px;
+      color: $primary;
+      transition: all linear .15s;
       cursor: pointer;
       background: white;
       border: 1px solid #f4f4f4;
+      > div {
+        margin-left: 26px;
+      }
       &:hover {
         background: #f4f4f4 !important;
       }
     }
   }
+}
+
+img.avatar[src=''] {
+  display: none;
 }
