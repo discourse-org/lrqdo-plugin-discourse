@@ -71,11 +71,7 @@
       {{#unless hideCategory}}
         {{#unless topic.isPinnedUncategorized}}
           <li class="list-inline-item">
-            <a href="{{topic.category.url}}">
-              <span class="tag tag-default font-weight-bold">
-                {{topic.category.name}}
-              </span>
-            </a>
+            {{category-link topic.category}}
           </li>
         {{/unless}}
       {{/unless}}

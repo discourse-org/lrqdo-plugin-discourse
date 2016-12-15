@@ -19,11 +19,7 @@
   <ul class="list-unstyled">
     {{#each categories as |category|}}
       <li>
-        <a href="{{category.url}}">
-          <span class="tag tag-default">
-            {{category.name}}
-          </span>
-        </a>
+        {{category-link category}}
       </li>
     {{/each}}
   </ul>

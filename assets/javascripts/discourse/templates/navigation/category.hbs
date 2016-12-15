@@ -7,10 +7,8 @@
   {{/if}}
 </section>
 
-<div class='m-b-1'>
-  <span class="tag tag-default">
-    {{category.name}}
-  </span>
+<div class='m-b-1 category-navigation'>
+  {{category-link category}}
 
   {{#if canEditCategory}}
     {{d-button class="btn-default edit-category" action="editCategory" actionParam=category icon="wrench" label="category.edit_long"}}

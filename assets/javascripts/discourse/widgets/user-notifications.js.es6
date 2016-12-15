@@ -20,9 +20,9 @@ export default createWidget('user-notifications', {
     // estimate (poorly) the amount of notifications to return
     let limit = Math.round(($(window).height() - headerHeight()) / 130);
     // we REALLY don't want to be asking for negative counts of notifications
-    // less than 4 is also not that useful
-    if (limit < 4) { limit = 4; }
-    if (limit > 8) { limit = 8; }
+    // less than 3 is also not that useful
+    if (limit < 3) { limit = 3; }
+    if (limit > 5) { limit = 5; }
 
     const stale = this.store.findStale('notification', {recent: true, limit }, {cacheKey: 'recent-notifications'});
 
