@@ -363,8 +363,11 @@ header .extra-info-wrapper {
 }
 
 #lrqdo-topic-title {
-  .fa-envelope {
+  .private-message-glyph {
     display: none;
+    .private_message & {
+      display: inline;
+    }
   }
   @media screen and (min-width: 770px) {
     .topic-status {
