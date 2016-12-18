@@ -27,14 +27,21 @@ body {
   }
 
   span.twitter-typeahead {
+    position: absolute;
+    width: calc(100% - 30px);
+    left: 15px;
+    top: 50px;
 
     .tt-menu {
-      width: calc(100% - 30px);
-      left: 15px;
-      top: 39px;
-      display: none;
-      &:first-of-type {
-        display: block;
+      position: initial;
+      display: block;
+      margin-top: 0;
+      .tt-suggestion {
+        padding: 0;
+        > a.search-link {
+          padding: 10px 20px;
+          display: block;
+        }
       }
     }
 
