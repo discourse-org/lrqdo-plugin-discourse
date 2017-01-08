@@ -928,3 +928,76 @@ img.avatar[src=''] {
     margin-right: 5px;
   }
 }
+
+.notifications .dropdown-item p > span {
+  font-weight: 500;
+  color: $turquoise3;
+}
+
+.notifications .dropdown-item p {
+  color: rgb(153,153,153);
+}
+
+.topic-post-badges {
+  display:none;
+}
+
+.notification-options .btn {
+  border-color: $turquoise1;
+  color: $turquoise2;
+  border-radius: 4px;
+}
+
+.btn-group.notification-options .fa {
+  color: $turquoise2;
+}
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid\9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.btn-group.notification-options .dropdown-menu span.title {
+  color: $turquoise2;
+  font-size: 1.1rem;
+  font-family: "Sitka Text", Charter, GeorgiaPro, Georgia, "Times New Roman", Times, serif;
+}
+
+.category-heading p {
+  margin-left: 45px;
+  color: $turquoise3;
+  font-size: 1.6rem;
+  font-family: "Sitka Text", Charter, GeorgiaPro, Georgia, "Times New Roman", Times, serif;
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#user-card .bio .overflow {
+  max-height: 110px;
+  overflow: hidden;
+}
+
+#user-card .metadata h3 .desc{
+  color: $turquoise2;
+}
+
+a.reply-to-tab {
+  border-radius: 0.25rem;
+  margin-top: 15px;
+  display: inline-block;
+  background-color: rgba($turquoise1,0.2);
+  padding: 6px;
+  margin-top: 10px;
+}
+
+body #topic-footer-buttons .notification-options {
+  display: none !important;
+}
