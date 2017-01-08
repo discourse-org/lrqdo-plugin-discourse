@@ -18,7 +18,7 @@ export default {
         setTimeout(function() {
           $('header > .navbar').removeClass('navbar-search-focus');
           $('header .twitter-typeahead').hide();
-        }, 100);
+        }, 300);
       });
 
       $(document).on('click', '.navbar-toggler', function() {
