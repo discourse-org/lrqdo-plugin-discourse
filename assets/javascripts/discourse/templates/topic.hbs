@@ -204,10 +204,7 @@
         {{share-popup topic=model replyAsNewTopic="replyAsNewTopic"}}
 
         {{#if currentUser.enable_quoting}}
-          {{quote-button topic=model
-                         quoteState=quoteState
-                         selectText="selectText"
-                         deselectText="deselectText"}}
+          {{quote-button quoteState=quoteState selectText=(action "selectText")}}
         {{/if}}
 
       </div>
