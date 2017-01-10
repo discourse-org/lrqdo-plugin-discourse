@@ -1,6 +1,6 @@
 # name: lrqdo
 # about: La ruche qui dit oui
-# version: 1.0.0
+# version: 1.0.1
 # authors: Sébastien Bourdu
 # url: https://github.com/ekkans/lrqdo-plugin-discourse
 
