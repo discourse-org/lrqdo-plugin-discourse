@@ -127,7 +127,25 @@
                       {{signup-cta}}
                     {{else}}
                       {{#if currentUser}}
-                        {{lrqdo-topic-footer-buttons topic=model topicDelegated=topicDelegated}}
+                        {{lrqdo-topic-footer-buttons
+                          topic=model
+                          toggleMultiSelect=(action "toggleMultiSelect")
+                          deleteTopic=(action "deleteTopic")
+                          recoverTopic=(action "recoverTopic")
+                          toggleClosed=(action "toggleClosed")
+                          toggleArchived=(action "toggleArchived")
+                          toggleVisibility=(action "toggleVisibility")
+                          showAutoClose=(action "topicRouteAction" "showAutoClose")
+                          showFeatureTopic=(action "topicRouteAction" "showFeatureTopic")
+                          showChangeTimestamp=(action "topicRouteAction" "showChangeTimestamp")
+                          convertToPublicTopic=(action "convertToPublicTopic")
+                          convertToPrivateMessage=(action "convertToPrivateMessage")
+                          toggleBookmark=(action "toggleBookmark")
+                          showFlagTopic=(action "topicRouteAction" "showFlagTopic")
+                          showInvite=(action "topicRouteAction" "showInvite")
+                          toggleArchiveMessage=(action "toggleArchiveMessage")
+                          replyToPost=(action "replyToPost")
+                          }}
                       {{else}}
                         {{d-button icon="reply" class="btn-primary" action="showLogin" label="topic.reply.title"}}
                       {{/if}}
