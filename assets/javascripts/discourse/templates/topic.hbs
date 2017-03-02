@@ -67,6 +67,57 @@
               {{partial "selected-posts"}}
             </div>
 
+            {{#topic-navigation topic=model jumpToIndex=(action "jumpToIndex") as |info|}}
+              {{#if info.renderAdminMenuButton}}
+                {{topic-admin-menu-button
+                  topic=model
+                  fixed="true"
+                  toggleMultiSelect=(action "toggleMultiSelect")
+                  deleteTopic=(action "deleteTopic")
+                  recoverTopic=(action "recoverTopic")
+                  toggleClosed=(action "toggleClosed")
+                  toggleArchived=(action "toggleArchived")
+                  toggleVisibility=(action "toggleVisibility")
+                  showAutoClose=(action "topicRouteAction" "showAutoClose")
+                  showFeatureTopic=(action "topicRouteAction" "showFeatureTopic")
+                  showChangeTimestamp=(action "topicRouteAction" "showChangeTimestamp")
+                  convertToPublicTopic=(action "convertToPublicTopic")
+                  convertToPrivateMessage=(action "convertToPrivateMessage")}}
+              {{/if}}
+
+              {{#if info.renderTimeline}}
+                {{topic-timeline
+                  topic=model
+                  prevEvent=info.prevEvent
+                  fullscreen=info.topicProgressExpanded
+                  enteredIndex=enteredIndex
+                  loading=model.postStream.loading
+                  jumpToPost=(action "jumpToPost")
+                  jumpTop=(action "jumpTop")
+                  jumpBottom=(action "jumpBottom")
+                  jumpToPostPrompt=(action "jumpToPostPrompt")
+                  jumpToIndex=(action "jumpToIndex")
+                  replyToPost=(action "replyToPost")
+                  toggleMultiSelect=(action "toggleMultiSelect")
+                  deleteTopic=(action "deleteTopic")
+                  recoverTopic=(action "recoverTopic")
+                  toggleClosed=(action "toggleClosed")
+                  toggleArchived=(action "toggleArchived")
+                  toggleVisibility=(action "toggleVisibility")
+                  showAutoClose=(action "topicRouteAction" "showAutoClose")
+                  showFeatureTopic=(action "topicRouteAction" "showFeatureTopic")
+                  showChangeTimestamp=(action "topicRouteAction" "showChangeTimestamp")
+                  convertToPublicTopic=(action "convertToPublicTopic")
+                  convertToPrivateMessage=(action "convertToPrivateMessage")}}
+              {{else}}
+                {{topic-progress
+                  prevEvent=info.prevEvent
+                  topic=model
+                  expanded=info.topicProgressExpanded
+                  jumpToPost=(action "jumpToPost")}}
+              {{/if}}
+            {{/topic-navigation}}
+
             <div class="row">
               <section class="topic-area" id="topic" data-topic-id="{{unbound model.id}}">
 
@@ -147,7 +198,9 @@
                           replyToPost=(action "replyToPost")
                           }}
                       {{else}}
-                        {{d-button icon="reply" class="btn-primary" action="showLogin" label="topic.reply.title"}}
+                        <div id="topic-footer-button">
+                          {{d-button icon="reply" class="btn-primary pull-right" action="showLogin" label="topic.reply.title"}}
+                        </div>
                       {{/if}}
                     {{/if}}
 

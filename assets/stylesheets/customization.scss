@@ -1001,3 +1001,17 @@ a.reply-to-tab {
 body #topic-footer-buttons .notification-options {
   display: none !important;
 }
+
+.author-date {
+  display: none;
+  .posts-count-1 {
+    display: block;
+  }
+}
+
+.poster-date {
+  display: block;
+  .posts-count-1 {
+    display: none;
+  }
+}
