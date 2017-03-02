@@ -1015,3 +1015,127 @@ body #topic-footer-buttons .notification-options {
     display: none;
   }
 }
+
+body .bootbox.modal {
+  position: fixed;
+}
+
+span.mention {
+  color: $mauve3;
+}
+
+.badge-notification.clicks {
+  font-size: 11px;
+  background-color: #bbb;
+  padding: 0px 4px;
+}
+
+// Lattice admin
+.span6 {
+  width: 27.027%;
+  float: left;
+}
+
+// Update Jérémie 28 février
+
+@font-face {
+    font-family: 'charter';
+    src: local('Charter-Roman');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'charter';
+    src: local('Charter-Italic');
+    font-style: italic;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'charter';
+    src: local('Charter-Bold');
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'charter';
+    src: local('Charter-BoldItalic');
+    font-style: italic;
+    font-weight: bold;
+}
+
+@media (max-width: 575px) {
+  h2, .h2{
+    font-size:1.5rem;
+  }
+  .card .pull-xs-right img{
+    display:none;
+  }
+  card .list-inline-item{
+    max-width:100%;
+  }
+  .card .card-block>.list-inline a{
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-block {
+    padding: 1rem 1rem;
+  }
+  .fancy-title{
+    font-size: 2.5rem;
+  }
+  .cooked, .d-editor-preview{
+    font-size:1.2rem;
+
+  }
+  #editor .editor-header h2, #editor .editor-header .h2 {
+    text-align:left;
+    letter-spacing: 0.02em;
+    font-size: 1.4rem;
+    padding-top:7px;
+  }
+  #editor .editor-header .editor-header-text {
+    font-size: 0.85rem;
+    display: inline-block;
+  }
+  .editor-header .col-xs-7{
+    padding-left:0;
+  }
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.widget-button.show-topic-admin, .timeline-controls, .timeline-footer-controls {
+  display: none;
+}
+
+.timeline-container {
+  margin-left: 610px;
+  &.timeline-docked {
+    margin-top: -100px;
+  }
+  &.timeline-docked-bottom {
+    display: none
+  }
+  .topic-timeline {
+    margin-left: 7rem;
+    width: 112px;
+    .timeline-handle {
+      border-radius: 0;
+      width: 0.25em;
+      background-color: #116e7c;
+    }
+    .timeline-ago {
+      color: #116e7c;
+    }
+    .start-date, .now-date {
+      color: #b0e1e0;
+    }
+  }
+}

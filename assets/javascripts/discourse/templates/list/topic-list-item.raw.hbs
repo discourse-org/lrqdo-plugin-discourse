@@ -36,13 +36,12 @@
       <div class="text-muted author-date posts-count-{{topic.posts_count}}">
         {{format-date topic.created_at leaveAgo="true"}}
       </div>
-      <div class="text-muted author-date posts-count-{{topic.posts_count}}">
+      <div class="text-muted poster-date posts-count-{{topic.posts_count}}">
         <i class="fa fa-mail-forward"></i>
         <strong>{{topic.last_poster_username}}</strong>
         a commenté
         {{format-date topic.last_posted_at leaveAgo="true"}}
       </div>
-    </div>
     </div>
     {{#if topic.hasExcerpt}}
       <p class="card-text">
