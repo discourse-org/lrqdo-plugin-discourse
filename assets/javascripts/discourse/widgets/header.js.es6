@@ -50,7 +50,7 @@ createWidget('header-notifications', {
 
     const contents = h("div.nav-link", [
         h("i.fa.fa-bell-o"),
-        h("span.hidden-lg-down", " Notifications"),
+        h("span.hidden-lg-down", " " + I18n.t("lrqdo.notifications")),
         notifications
       ]);
 
@@ -163,7 +163,7 @@ createWidget('header-icons', {
   html(attrs) {
     const createTopic = this.attach('header-button', {
                      action: 'createTopic',
-                     contents() { return 'Créer un sujet'; }
+                     contents() { return I18n.t("lrqdo.create_a_subject"); }
                    });
 
     const hamburger = this.attach('header-dropdown', {

@@ -2,3 +2,14 @@ en:
   js:
     lrqdo:
       catchphrase: "Grains de sels et grandes idées"
+      the_categories: "Les catégories"
+      create_a_subject: "Créer un sujet"
+      has_commented: "a commenté"
+      reply: "Répondre"
+      search: "Rechercher"
+      notifications: "Notifications"
+      see_all_notifications: "Voir toutes les notifications"
+      my_profile: "Mon profil"
+      messages: "Messages"
+      settings: "Préférences"
+      sign_out: "Se déconnecter"

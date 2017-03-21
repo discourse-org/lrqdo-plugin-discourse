@@ -7,12 +7,12 @@ export default createWidget('notifications-menu', {
   panelContents() {
     const path = this.currentUser.get('path');
 
-    return [h('h6.dropdown-header', 'Notifications'),
+    return [h('h6.dropdown-header', I18n.t("lrqdo.notifications")),
             this.attach('user-notifications', { path }),
             h('.dropdown-item',
               h('.dropdown-item-content.dropdown-item-content-btn',
                 h('a.btn.btn-secondary.btn-block', { href: `${path}/notifications` },
-                  'Voir toutes les notifications'))
+                  I18n.t("lrqdo.see_all_notifications")))
             )];
   },
 

@@ -39,7 +39,7 @@
       <div class="text-muted poster-date posts-count-{{topic.posts_count}}">
         <i class="fa fa-mail-forward"></i>
         <strong>{{topic.last_poster_username}}</strong>
-        a commenté
+        {{i18n "lrqdo.has_commented"}}
         {{format-date topic.last_posted_at leaveAgo="true"}}
       </div>
     </div>
@@ -62,7 +62,7 @@
           <i class="fa fa-comment"></i>
           {{topic.replyCount}}
           <span class="action">
-            Répondre
+            {{i18n 'lrqdo.reply'}}
           </span>
         </a>
       </li>

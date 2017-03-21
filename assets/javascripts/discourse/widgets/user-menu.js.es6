@@ -13,21 +13,21 @@ export default createWidget('user-menu', {
                                  model: this.currentUser,
                                  contents: function() { return h('div.dropdown-item-content', [
                                               h('i.fa.fa-user'),
-                                              h('span', ' Mon profil')
+                                              h('span', ' ' + I18n.t('lrqdo.my_profile'))
                                             ]); }
                                 }),
             this.attach('link', { className: 'dropdown-item',
                                  href: `${path}/messages`,
                                  contents: function() { return h('div.dropdown-item-content', [
                                               h('i.fa.fa-envelope-o'),
-                                              h('span', ' Messages')
+                                              h('span', ' ' + I18n.t('lrqdo.messages'))
                                             ]); }
                                 }),
             this.attach('link', { className: 'dropdown-item',
                                  href: `${path}/preferences`,
                                  contents: function() { return h('div.dropdown-item-content', [
                                               h('i.fa.fa-gear'),
-                                              h('span', ' Préférences')
+                                              h('span', ' ' + I18n.t('lrqdo.settings'))
                                             ]); }
                                 }),
             this.attach('link', { action: 'logout',
@@ -35,7 +35,7 @@ export default createWidget('user-menu', {
                                  href: '',
                                  contents: function() { return h('div.dropdown-item-content', [
                                               h('i.fa.fa-sign-out'),
-                                              h('span', ' Se déconnecter')
+                                              h('span', ' ' + I18n.t('lrqdo.sign_out'))
                                             ]); }
                                 })
             ];

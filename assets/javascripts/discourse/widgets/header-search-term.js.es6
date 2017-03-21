@@ -13,7 +13,7 @@ createWidget('header-search-term', {
 
     let attributes =  { type: 'text',
        value: attrs.value || '',
-       placeholder: attrs.contextEnabled ? "" : "Rechercher",
+       placeholder: attrs.contextEnabled ? "" : I18n.t("lrqdo.search"),
        class: attrs.loading ? 'input-searching' : ''};
 
     return h('div.input-group', [
