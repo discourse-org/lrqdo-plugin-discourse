@@ -1139,3 +1139,19 @@ a {
     }
   }
 }
+
+// Admin update 21 mars
+
+.author-date {
+  display: none;
+  &.posts-count-1 {
+    display: block;
+  }
+}
+
+.poster-date {
+  display: block;
+  &.posts-count-1 {
+    display: none;
+  }
+}
