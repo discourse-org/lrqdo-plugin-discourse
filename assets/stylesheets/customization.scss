@@ -300,6 +300,8 @@ aside .list-unstyled .tag {
   text-overflow: ellipsis;
   overflow: hidden;
   margin: 0;
+  vertical-align: top;
+  margin-bottom: 5px;
 }
 
 .card .tag {
