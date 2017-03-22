@@ -1038,7 +1038,7 @@ span.mention {
   float: left;
 }
 
-// Update Jérémie 28 février
+// Update Jérémie Feb 28
 
 @font-face {
     font-family: 'charter';
@@ -1142,7 +1142,7 @@ a {
   }
 }
 
-// Admin update 21 mars
+// Admin update March 21
 
 .author-date {
   display: none;
@@ -1154,6 +1154,41 @@ a {
 .poster-date {
   display: block;
   &.posts-count-1 {
+    display: none;
+  }
+}
+
+// Admin update March 22
+
+.categories-list {
+  .category-list, .topic-list-latest {
+    width: 100%;
+  }
+  .nav-inline {
+    float: left;
+  }
+  .category-notification-menu {
+      .fa-plus {
+        float: left;
+        margin: 5px 8px 8px;
+      }
+      .title {
+        display: none;
+      }
+  }
+  ol.category-breadcrumb {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .lattice-dropdown {
+    background: none;
+  }
+  .lattice-dropdown-text {
+    margin-right: 4px;
+  }
+  .no-category,
+  .tag-drop,
+  .topic-list-latest {
     display: none;
   }
 }

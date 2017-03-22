@@ -53,11 +53,6 @@ export default {
         if($ul.find('li').length > 5) {
           const $seeMore = $ul.find('~ a');
           $seeMore.removeClass('invisible');
-          $seeMore.click(function(event) {
-            event.preventDefault();
-            $seeMore.addClass('invisible');
-            $ul.addClass('list-expanded');
-          })
         }
 
       });
