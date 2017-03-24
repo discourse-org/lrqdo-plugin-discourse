@@ -1192,3 +1192,67 @@ a {
     display: none;
   }
 }
+
+// Admin update March 24
+
+.btn-primary:focus, .btn-primary.focus {
+  outline-color: transparent;
+}
+
+.show-more.has-topics .alert {
+  text-align: center;
+  border-radius: 23px;
+  border: none;
+  padding: 0.75rem;
+}
+
+// Search
+
+.search-container {
+  @extend .container-fluid;
+  max-width: 684px;
+  .search {
+    display: none;
+  }
+}
+
+.fps-result {
+  background: white;
+  padding: 1.2rem 2rem;
+
+  .author {
+    float: left;
+    img {
+      height: 30px;
+      width: 30px;
+    }
+  }
+
+  a.search-link {
+    font-family: "Sitka Display", Charter, GeorgiaPro, Georgia, "Times New Roman", Times, serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    .topic-title {
+      color: $turquoise3 !important;
+    }
+    &:hover {
+      .topic-title {
+        color: $mauve2 !important;
+      }
+    }
+  }
+
+  .fps-topic {
+    display: block;
+  }
+
+  .blurb {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .badge-wrapper.bar {
+    float: left;
+    margin: 6px 8px 3px 0;
+  }
+}
