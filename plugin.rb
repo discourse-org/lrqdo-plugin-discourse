@@ -186,11 +186,9 @@ end
 
 class Typography
   def self.to_french(text)
-    text.gsub(/(\s|)+([!?;:]+(\s|))/, ' \2\3')
+    text.gsub(/(\s|)+([!?;]+(\s|\z))/, ' \2\3')
   end
   def self.to_html_french(text)
-    text.gsub!(/(\s|)+([!?;]+(\s|))/, '&thinsp;\2\3')
-    text.gsub!(/(\s|)+([:]+(\s|))/, '&nbsp;\2\3')
-    text
+    text.gsub(/(\s|)+([!?;]+(\s|\z))/, '&thinsp;\2\3')
   end
 end
