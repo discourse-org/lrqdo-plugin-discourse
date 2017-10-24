@@ -126,7 +126,7 @@ registerButton('share', attrs => {
 
 registerButton('reply', attrs => {
   const args = {
-    action: 'replyToPost',
+    action: 'showReplyDropdown',
     title: 'reply',
     icon: 'comment',
     className: 'reply create fade-out'
@@ -180,11 +180,43 @@ registerButton('delete', attrs => {
   }
 });
 
+createWidget('reply-dropdown', {
+  tagName: 'div.dropdown.open',
+
+  panelContents() {
+    const path = this.currentUser.get('path');
+
+    return [this.attach('link', { action: 'replyToPost',
+                                 className: 'dropdown-item',
+                                 href: '#',
+                                 contents: function() { return h('div.dropdown-item-content', [
+                                              h('span', ' ' + I18n.t('lrqdo.to_the_message'))
+                                            ]); }
+                                }),
+            this.attach('link', { action: 'replyToTopic',
+                                 className: 'dropdown-item',
+                                 href: '#',
+                                 contents: function() { return h('div.dropdown-item-content', [
+                                              h('span', ' ' + I18n.t('lrqdo.to_the_topic'))
+                                            ]); }
+                                })
+            ];
+  },
+
+  html() {
+    return h('div.dropdown-menu.dropdown-menu-right', this.panelContents());
+  },
+
+  clickOutside() {
+    this.sendWidgetAction('closeReplyDropdown');
+  }
+});
+
 export default createWidget('post-menu', {
   tagName: 'section.post-menu-area.clearfix',
 
   defaultState() {
-    return { collapsed: true, likedUsers: [], adminVisible: false };
+    return { collapsed: true, likedUsers: [], adminVisible: false, replyDropdownVisible: false };
   },
 
   buildKey: attrs => `post-menu-${attrs.id}`,
@@ -280,6 +312,9 @@ export default createWidget('post-menu', {
     if (state.adminVisible) {
       postControls.push(this.attach('post-admin-menu', attrs));
     }
+    if (state.replyDropdownVisible) {
+      postControls.push(this.attach('reply-dropdown', attrs));
+    }
 
     const contents = [ h('nav.post-controls.clearfix', postControls) ];
     if (state.likedUsers.length) {
@@ -304,6 +339,18 @@ export default createWidget('post-menu', {
 
   showMoreActions() {
     this.state.collapsed = false;
+  },
+
+  showReplyDropdown() {
+    this.state.replyDropdownVisible = true;
+  },
+
+  closeReplyDropdown() {
+    this.state.replyDropdownVisible = false;
+  },
+
+  replyToTopic() {
+    $('#topic-footer-buttons .btn.create').trigger('click')
   },
 
   like() {

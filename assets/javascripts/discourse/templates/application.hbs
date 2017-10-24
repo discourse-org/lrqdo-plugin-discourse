@@ -1,19 +1,20 @@
-{{plugin-outlet "above-site-header"}}
+{{plugin-outlet name="above-site-header"}}
 {{site-header canSignUp=canSignUp
-              showCreateAccount=(action "appRouteAction" "showCreateAccount")
-              showLogin=(action "appRouteAction" "showLogin")
-              showKeyboard=(action "appRouteAction" "showKeyboardShortcutsHelp")
-              toggleMobileView=(action "appRouteAction" "toggleMobileView")
-              toggleAnonymous=(action "appRouteAction" "toggleAnonymous")
-              logout=(action "appRouteAction" "logout")}}
-{{plugin-outlet "below-site-header"}}
+              showCreateAccount=(route-action "showCreateAccount")
+              showLogin=(route-action "showLogin")
+              showKeyboard=(route-action "showKeyboardShortcutsHelp")
+              toggleMobileView=(route-action "toggleMobileView")
+              toggleAnonymous=(route-action "toggleAnonymous")
+              logout=(route-action "logout")}}
+
+{{plugin-outlet name="below-site-header" args=(hash currentPath=currentPath)}}
 
 <div id="main-outlet">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8 offset-md-1 col-lg-6 offset-lg-2">
         {{#if showTop}}
-          {{custom-html "top"}}
+          {{custom-html name="top"}}
         {{/if}}
         {{global-notice}}
         {{create-topics-notice}}
@@ -21,7 +22,7 @@
     </div>
   </div>
   {{outlet}}
-  {{render "user-card"}}
+  {{outlet "user-card"}}
 </div>
 
 {{plugin-outlet name="above-footer" args=(hash showFooter=showFooter)}}

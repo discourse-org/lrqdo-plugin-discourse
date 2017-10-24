@@ -1,25 +1,13 @@
 import { createWidget } from 'discourse/widgets/widget';
-import { iconNode } from 'discourse/helpers/fa-icon-node';
+import { iconNode } from 'discourse-common/lib/icon-library';
 import { avatarImg } from 'discourse/widgets/post';
-import Composer from 'discourse/models/composer';
 import DiscourseURL from 'discourse/lib/url';
 import { wantsNewWindow } from 'discourse/lib/intercept-click';
-import { translateSize, avatarUrl } from 'discourse/lib/utilities';
+import { applySearchAutocomplete } from "discourse/lib/search";
+import { ajax } from 'discourse/lib/ajax';
 import { h } from 'virtual-dom';
-
-const button = {
-  buildClasses(attrs) {
-    if (attrs.active) { return "active"; }
-  },
-
-  click(e) {
-    if (wantsNewWindow(e)) { return; }
-    e.preventDefault();
-    if (!this.attrs.active) {
-      this.sendWidgetAction(this.attrs.action);
-    }
-  }
-};
+import Composer from 'discourse/models/composer';
+import { translateSize, avatarUrl } from 'discourse/lib/utilities';
 
 const dropdown = {
   buildClasses(attrs) {
@@ -38,25 +26,54 @@ const dropdown = {
 createWidget('header-notifications', {
 
   html(attrs) {
-    const { currentUser } = this;
+    const { user } = attrs;
 
-    const unreadNotifications = currentUser.get('unread_notifications');
+    const unreadNotifications = user.get('unread_notifications');
     let notifications;
     if (!!unreadNotifications) {
-      notifications = this.attach('link', { action: attrs.action,
-                                          className: 'badge-notification unread-notifications',
-                                          rawLabel: unreadNotifications });
+      notifications = this.attach('link', {
+        action: attrs.action,
+        className: 'badge-notification unread-notifications',
+        rawLabel: unreadNotifications,
+        omitSpan: true
+      });
     }
 
     const contents = h("div.nav-link", [
-        h("i.fa.fa-bell-o"),
-        h("span.hidden-lg-down", " " + I18n.t("lrqdo.notifications")),
-        notifications
-      ]);
+      h("i.fa.fa-bell-o"),
+      h("span.hidden-lg-down", " " + I18n.t("lrqdo.notifications")),
+      notifications
+    ]);
 
     return contents;
   }
 });
+
+createWidget('notifications-dropdown', jQuery.extend({
+  tagName: 'li.nav-item',
+
+  buildId() {
+    return 'current-user';
+  },
+
+  html(attrs) {
+    return h('a', { attributes: { href: '', 'data-auto-route': true } },
+             this.attach('header-notifications', attrs));
+  }
+}, dropdown));
+
+createWidget('user-dropdown', jQuery.extend({
+  tagName: 'li.nav-item',
+
+  buildId() {
+    return 'current-user';
+  },
+
+  html(attrs) {
+    return h('a', { attributes: { href: attrs.user.get('path'), 'data-auto-route': true } },
+             this.attach('header-user', attrs));
+  }
+}, dropdown));
 
 createWidget('header-user', {
   settings: {
@@ -77,51 +94,14 @@ createWidget('header-user', {
       };
       avatar = h('img', properties);
     }
-    const contents = [ avatar ];
-
-    /* const unreadPMs = currentUser.get('unread_private_messages'); */
-    /* if (!!unreadPMs) { */
-    /*   contents.push(this.attach('link', { action: attrs.action, */
-    /*                                       className: 'badge-notification unread-private-messages', */
-    /*                                       rawLabel: unreadPMs })); */
-    /* } */
+    const contents = [avatar];
 
     return contents;
   }
 });
 
-createWidget('notifications-dropdown', jQuery.extend({
-  tagName: 'li.nav-item',
-
-  buildId() {
-    return 'current-user';
-  },
-
-  html(attrs) {
-    const { currentUser } = this;
-
-    return h('a', { attributes: { href: currentUser.get('path'), 'data-auto-route': true } },
-             this.attach('header-notifications', attrs));
-  }
-}, dropdown));
-
-createWidget('user-dropdown', jQuery.extend({
-  tagName: 'li.nav-item',
-
-  buildId() {
-    return 'current-user';
-  },
-
-  html(attrs) {
-    const { currentUser } = this;
-
-    return h('a', { attributes: { href: currentUser.get('path'), 'data-auto-route': true } },
-             this.attach('header-user', attrs));
-  }
-}, dropdown));
-
 createWidget('header-dropdown', jQuery.extend({
-  tagName: 'li.nav-item',
+  tagName: 'li.header-dropdown-toggle',
 
   html(attrs) {
     const title = I18n.t(attrs.title);
@@ -131,13 +111,34 @@ createWidget('header-dropdown', jQuery.extend({
       body.push(attrs.contents.call(this));
     }
 
-    return h('a.nav-link', { attributes: { href: attrs.href,
-                                       'data-auto-route': true,
-                                       title,
-                                       'aria-label': title,
-                                       id: attrs.iconId } }, body);
+    return h(
+      'a.icon.btn-flat',
+      { attributes: {
+        href: attrs.href,
+          'data-auto-route': true,
+          title,
+          'aria-label': title,
+          id: attrs.iconId
+        }
+      },
+      body
+    );
   }
 }, dropdown));
+
+const button = {
+  buildClasses(attrs) {
+    if (attrs.active) { return "active"; }
+  },
+
+  click(e) {
+    if (wantsNewWindow(e)) { return; }
+    e.preventDefault();
+    if (!this.attrs.active) {
+      this.sendWidgetAction(this.attrs.action);
+    }
+  }
+};
 
 createWidget('header-button', jQuery.extend({
   tagName: 'li.nav-item',
@@ -161,6 +162,8 @@ createWidget('header-icons', {
   },
 
   html(attrs) {
+    if (this.siteSettings.login_required && !this.currentUser) { return []; }
+
     const createTopic = this.attach('header-button', {
                      action: 'createTopic',
                      contents() { return I18n.t("lrqdo.create_a_subject"); }
@@ -174,12 +177,9 @@ createWidget('header-icons', {
                         action: 'toggleHamburger',
                         contents() {
                           if (!attrs.flagCount) { return; }
-                          return this.attach('link', {
-                            href: '/admin/flags/active',
-                            title: 'notifications.total_flagged',
-                            rawLabel: attrs.flagCount,
-                            className: 'badge-notification flagged-posts'
-                          });
+                          return h('div.badge-notification.flagged-posts', { attributes: {
+                            title: I18n.t('notifications.total_flagged')
+                          } }, attrs.flagCount);
                         }
                       });
 
@@ -189,16 +189,24 @@ createWidget('header-icons', {
                      iconId: 'search-button',
                      action: 'toggleSearchMenu',
                      active: attrs.searchVisible,
-                     href: '/search'
+                     href: Discourse.getURL('/search')
                    });
 
     const icons = [];
-    if (this.currentUser) {
+    if (attrs.user) {
       icons.push(createTopic);
-      icons.push(this.attach('notifications-dropdown', { active: attrs.notificationsVisible,
-                                                action: 'toggleNotificationsMenu' }));
-      icons.push(this.attach('user-dropdown', { active: attrs.userVisible,
-                                                action: 'toggleUserMenu' }));
+      icons.push(this.attach('notifications-dropdown', {
+        active: attrs.notificationsVisible,
+        action: 'toggleNotificationsMenu',
+        ringBackdrop: attrs.ringBackdrop,
+        user: attrs.user
+      }));
+      icons.push(this.attach('user-dropdown', {
+        active: attrs.userVisible,
+        action: 'toggleUserMenu',
+        ringBackdrop: attrs.ringBackdrop,
+        user: attrs.user
+      }));
     }
 
     return icons;
@@ -214,14 +222,16 @@ createWidget('header-buttons', {
     const buttons = [];
 
     if (attrs.canSignUp && !attrs.topic) {
-      buttons.push(h('li.nav-item', this.attach('button', { label: "sign_up",
+      buttons.push(this.attach('button', { label: "sign_up",
                                            className: 'btn btn-primary',
-                                           action: "showCreateAccount" })));
+                                           action: "showCreateAccount" }));
     }
 
-    buttons.push(h('li.nav-item', this.attach('button', { label: 'log_in',
+
+    buttons.push(this.attach('button', { label: 'log_in',
                                          className: 'btn btn-primary',
-                                         action: 'showLogin' })));
+                                         action: 'showLogin',
+                                         icon: 'user' }));
 
     /* Little trick for the search mode */
     buttons.push(h('li.nav-item', ''));
@@ -230,27 +240,62 @@ createWidget('header-buttons', {
   }
 });
 
+const forceContextEnabled = ['category', 'user', 'private_messages'];
+
+let additionalPanels = [];
+export function attachAdditionalPanel(name, toggle, transformAttrs) {
+  additionalPanels.push({ name, toggle, transformAttrs });
+}
+
 export default createWidget('header', {
   tagName: 'header.d-headerr',
   buildKey: () => `header`,
 
   defaultState() {
-    return { searchVisible: false,
-             hamburgerVisible: false,
-             notificationsVisible: false,
-             userVisible: false,
-             contextEnabled: false };
+    let states =  {
+      searchVisible: false,
+      hamburgerVisible: false,
+      notificationsVisible: false,
+      userVisible: false,
+      ringBackdrop: true
+    };
+
+    if (this.site.mobileView) {
+      states.skipSearchContext = true;
+    }
+
+    return states;
   },
 
   html(attrs, state) {
-    const panels = [this.attach('header-buttons', attrs),
-                    this.attach('header-icons', { hamburgerVisible: state.hamburgerVisible,
-                                                  notificationsVisible: state.notificationsVisible,
-                                                  userVisible: state.userVisible,
-                                                  searchVisible: state.searchVisible,
-                                                  flagCount: attrs.flagCount })];
+
+    const panels = [
+      this.attach('header-buttons', attrs),
+      this.attach('header-icons', {
+        hamburgerVisible: state.hamburgerVisible,
+        notificationsVisible: state.notificationsVisible,
+        userVisible: state.userVisible,
+        searchVisible: state.searchVisible,
+        ringBackdrop: state.ringBackdrop,
+        flagCount: attrs.flagCount,
+        user: this.currentUser }
+      )
+    ];
 
     if (state.searchVisible) {
+      const contextType = this.searchContextType();
+
+      if (state.searchContextType !== contextType) {
+        state.contextEnabled = undefined;
+        state.searchContextType = contextType;
+      }
+
+      if (state.contextEnabled === undefined) {
+        if (forceContextEnabled.includes(contextType)) {
+          state.contextEnabled = true;
+        }
+      }
+
       panels.push(this.attach('search-menu', { contextEnabled: state.contextEnabled }));
     } else if (state.hamburgerVisible) {
       panels.push(this.attach('hamburger-menu'));
@@ -259,6 +304,12 @@ export default createWidget('header', {
     } else if (state.userVisible) {
       panels.push(this.attach('user-menu'));
     }
+
+    additionalPanels.map((panel) => {
+      if (this.state[panel.toggle]) {
+        panels.push(this.attach(panel.name, panel.transformAttrs.call(this, attrs, state)));
+      }
+    });
 
     const search = this.attach('header-search');
 
@@ -271,46 +322,67 @@ export default createWidget('header', {
     }
 
     return h('nav.navbar.navbar-fixed-top', [
-        h("div.navbar-mobile", [ h("a.navbar-brand.hidden-lg-up", {"attributes":{"href":"/"}},
-          [ h("img", {"attributes":{"src":"/plugins/lrqdo/images/logo-white.svg", "width":"44px", "height":"42px"}}, [ "Le forum" ]) ]),
-          h("button.pull-right.navbar-toggler.hidden-lg-up",
-          {"attributes":{"aria-controls":"collapsingNavbar","aria-expanded":"false","aria-label":"Toggle navigation","type":"button"},
-          "dataset":{"target":"#collapsingNavbar","toggle":"collapse"}}, [ "☰" ]) ]),
-        h('#collapsingNavbar.navbar-toggleable-md.collapse',
-          h('div.container-fluid',
-            h('div.row', contents)
-          )
+      h("div.navbar-mobile", [ h("a.navbar-brand.hidden-lg-up", {"attributes":{"href":"/"}},
+        [ h("img", {"attributes":{"src":"/plugins/lrqdo/images/logo-white.svg", "width":"44px", "height":"42px"}}, [ "Le forum" ]) ]),
+        h("button.pull-right.navbar-toggler.hidden-lg-up",
+        {"attributes":{"aria-controls":"collapsingNavbar","aria-expanded":"false","aria-label":"Toggle navigation","type":"button"},
+        "dataset":{"target":"#collapsingNavbar","toggle":"collapse"}}, [ "☰" ]) ]),
+      h('#collapsingNavbar.navbar-toggleable-md.collapse',
+        h('div.container-fluid',
+          h('div.row', contents)
         )
-      ]);
+      )
+    ]);
   },
 
   updateHighlight() {
     if (!this.state.searchVisible) {
-      const service = this.container.lookup('search-service:main');
+      const service = this.register.lookup('search-service:main');
       service.set('highlightTerm', '');
     }
   },
 
   closeAll() {
-    this.state.notificationsVisible = false;
     this.state.userVisible = false;
     this.state.hamburgerVisible = false;
     this.state.searchVisible = false;
   },
 
-  linkClickedEvent() {
-    this.closeAll();
+  linkClickedEvent(attrs) {
+
+    let searchContextEnabled = false;
+    if (attrs) {
+      searchContextEnabled = attrs.searchContextEnabled;
+
+      const { searchLogId, searchResultId, searchResultType } = attrs;
+      if (searchLogId && searchResultId && searchResultType) {
+
+        ajax('/search/click', {
+          type: 'POST',
+          data: {
+            search_log_id: searchLogId,
+            search_result_id: searchResultId,
+            search_result_type: searchResultType
+          }
+        });
+      }
+    }
+
+    if (!searchContextEnabled) {
+      this.closeAll();
+    }
+
     this.updateHighlight();
   },
 
   toggleSearchMenu() {
     if (this.site.mobileView) {
-      const searchService = this.container.lookup('search-service:main');
+      const searchService = this.register.lookup('search-service:main');
       const context = searchService.get('searchContext');
       var params = "";
 
       if (context) {
-        params = `?context=${context.type}&context_id=${context.id}&skip_context=true`;
+        params = `?context=${context.type}&context_id=${context.id}&skip_context=${this.state.skipSearchContext}`;
       }
 
       return DiscourseURL.routeTo('/search' + params);
@@ -320,23 +392,22 @@ export default createWidget('header', {
     this.updateHighlight();
 
     if (this.state.searchVisible) {
-      Ember.run.schedule('afterRender', () => $('#search-term').focus().select());
+      Ember.run.schedule('afterRender', () => {
+        const $searchInput = $('#search-term');
+        $searchInput.focus().select();
+
+        applySearchAutocomplete($searchInput, this.siteSettings, this.appEvents, {
+          appendSelector: '.menu-panel'
+        });
+      });
     }
   },
 
-  toggleNotificationsMenu() {
-    this.state.notificationsVisible = !this.state.notificationsVisible;
-  },
-
-  createTopic() {
-    this.container.lookup('controller:composer').open({
-      action: Composer.CREATE_TOPIC,
-      draftKey: Composer.CREATE_TOPIC,
-      categoryId: $('[data-composer-category-id]').data('composer-category-id')
-     });
-  },
-
   toggleUserMenu() {
+    if (this.currentUser.get('read_first_notification')) {
+      this.state.ringBackdrop = false;
+    };
+
     this.state.userVisible = !this.state.userVisible;
   },
 
@@ -349,7 +420,7 @@ export default createWidget('header', {
 
     state.contextEnabled = false;
 
-    const currentPath = this.container.lookup('controller:application').get('currentPath');
+    const currentPath = this.register.lookup('controller:application').get('currentPath');
     const blacklist = [ /^discovery\.categories/ ];
     const whitelist = [ /^topic\./ ];
     const check = function(regex) { return !!currentPath.match(regex); };
@@ -357,8 +428,12 @@ export default createWidget('header', {
 
     // If we're viewing a topic, only intercept search if there are cloaked posts
     if (showSearch && currentPath.match(/^topic\./)) {
-      showSearch = ($('.topic-post .cooked, .small-action:not(.time-gap)').length <
-                    this.container.lookup('controller:topic').get('model.postStream.stream.length'));
+      const controller = this.register.lookup('controller:topic');
+      const total = controller.get('model.postStream.stream.length') || 0;
+      const chunkSize = controller.get('model.chunk_size') || 0;
+
+      showSearch = (total > chunkSize) &&
+        $('.topic-post .cooked, .small-action:not(.time-gap)').length < total;
     }
 
     if (state.searchVisible) {
@@ -375,14 +450,27 @@ export default createWidget('header', {
     return true;
   },
 
+  toggleNotificationsMenu() {
+    this.state.notificationsVisible = !this.state.notificationsVisible;
+  },
+
+  createTopic() {
+    this.register.lookup('controller:composer').open({
+      action: Composer.CREATE_TOPIC,
+      draftKey: Composer.CREATE_TOPIC,
+      categoryId: $('[data-composer-category-id]').data('composer-category-id')
+     });
+  },
+
   searchMenuContextChanged(value) {
+    this.state.contextType = this.register.lookup('search-service:main').get('contextType');
     this.state.contextEnabled = value;
   },
 
   domClean() {
     const { state } = this;
 
-    if (state.searchVisible || state.hamburgerVisible || state.notificationsVisible || state.userVisible) {
+    if (state.searchVisible || state.hamburgerVisible || state.userVisible) {
       this.closeAll();
     }
   },
@@ -404,6 +492,16 @@ export default createWidget('header', {
           msg.event.stopPropagation();
         }
         break;
+    }
+  },
+
+  searchContextType() {
+    const service = this.register.lookup('search-service:main');
+    if (service) {
+      const ctx = service.get('searchContext');
+      if (ctx) {
+        return Ember.get(ctx, 'type');
+      }
     }
   }
 

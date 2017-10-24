@@ -1256,3 +1256,135 @@ a {
     margin: 6px 8px 3px 0;
   }
 }
+
+.dropdown-item.selected {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f3f8f9;
+}
+.cooked, .d-editor-preview {
+  font-size: 1.4rem;
+  line-height: 1.42em;
+  color: #18475d;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.author-date {
+  display: none;
+  &.posts-count-1 {
+    display: block;
+  }
+}
+
+.poster-date {
+  display: block;
+  &.posts-count-1 {
+    display: none;
+  }
+}
+
+#topic-footer-buttons .pinned-button {
+  display: none;
+}
+
+.topic-notifications-button {
+  display: none;
+}
+
+.timeline-container {
+  margin-top: 100px;
+}
+
+.btn-flat {
+  background: transparent;
+  border: 0;
+  outline: 0;
+  .d-icon {
+    opacity: 0.7;
+  }
+}
+
+#reply-control.saving .saving-text {
+  padding-left: 20px;
+}
+
+.user-right {
+  width: 100%;
+}
+
+.user-stream .item, .user-stream .user-stream-item {
+  padding: 20px;
+}
+
+.stream-topic-details {
+  margin: -24px 60px;
+}
+
+.user-stream .excerpt {
+  margin: 20px 60px 0;
+}
+
+.categories-and-latest {
+  display: block;
+}
+
+.categories-list .latest-topic-list {
+  display: none;
+}
+
+#reply-control .d-editor-preview img:not(.thumbnail), .cooked img:not(.thumbnail) {
+  width: auto;
+  height: auto;
+}
+
+#reply-control .d-editor-preview img.emoji, .cooked img.emoji {
+  width: 20px;
+  height: 20px;
+}
+
+.emoji-picker {
+  .categories-column, .filter, .clear-recent, .footer {
+    display: none;
+  }
+}
+
+.dropdown-menu.dropdown-menu-right .dropdown-item:not(.widget-link) {
+  min-height: 43px;
+}
+
+.posts .dropdown {
+  top: -48px;
+
+  .dropdown-menu {
+    width: 170px;
+    bottom: auto;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+
+    span {
+      font-weight: bold;
+      font-size: 1rem;
+
+      &:hover {
+        color: $turquoise2;
+      }
+    }
+
+    a {
+      padding: 2px;
+
+      > div {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .dropdown-menu, span.twitter-typeahead .tt-menu {
+    min-width: 170px;
+  }
+
+  .dropdown-item .dropdown-item-content, span.twitter-typeahead .tt-suggestion .dropdown-item-content {
+    border: none;
+  }
+}

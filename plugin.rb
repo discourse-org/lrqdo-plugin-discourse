@@ -1,6 +1,6 @@
 # name: lrqdo
 # about: La ruche qui dit oui
-# version: 1.0.2
+# version: 1.0.3
 # authors: Sébastien Bourdu
 # url: https://github.com/ekkans/lrqdo-plugin-discourse
 
@@ -164,4 +164,33 @@ after_initialize do
 
   add_to_serializer(:basic_category, :list_excerpts) {object.custom_fields["list_excerpts"]}
   add_to_serializer(:basic_category, :list_thumbnails) {object.custom_fields["list_thumbnails"]}
+
+  Topic.class_eval do
+    before_validation do
+      self.title = Typography.to_french(self.title)
+    end
+    def self.fancy_title(title)
+      escaped = ERB::Util.html_escape(title)
+      return unless escaped
+      fancy_title = Emoji.unicode_unescape(HtmlPrettify.render(escaped))
+      Typography.to_html_french(fancy_title)
+    end
+  end
+
+  Post.class_eval do
+    before_validation do
+      self.raw = Typography.to_html_french(self.raw)
+    end
+  end
+end
+
+class Typography
+  def self.to_french(text)
+    text.gsub(/(\s|)+([!?;:]+(\s|))/, ' \2\3')
+  end
+  def self.to_html_french(text)
+    text.gsub!(/(\s|)+([!?;]+(\s|))/, '&thinsp;\2\3')
+    text.gsub!(/(\s|)+([:]+(\s|))/, '&nbsp;\2\3')
+    text
+  end
 end
