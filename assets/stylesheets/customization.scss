@@ -1460,3 +1460,50 @@ form[role=search] .form-control {
 .select-box-kit .select-box-kit-row {
   padding: 6px;
 }
+
+.container {
+  max-width: 1140px;
+}
+
+body span.twitter-typeahead {
+  z-index: 10002;
+}
+
+.category-breadcrumb {
+  > li {
+    display: none;
+    &:first-of-type {
+      display: block;
+    }
+  }
+}
+
+.navigation-container .nav>li>a {
+  margin: 0 1rem 1rem 0;
+  font-size: 1.25rem;
+}
+
+#reply-control.draft, #reply-control.saving {
+  background: $turquoise2;
+}
+
+#reply-control .saving-text .spinner, #reply-control .draft-text .spinner {
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.btn-flat .fa-times {
+  color: white;
+}
+
+.open .grippie {
+  background: $turquoise2;
+}
+
+body span.twitter-typeahead .tt-menu .topic-statuses {
+  color: $turquoise2;
+}
+
+body span.twitter-typeahead .topic-title {
+  color: $turquoise2;
+}
