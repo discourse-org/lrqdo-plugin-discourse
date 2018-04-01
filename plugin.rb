@@ -184,11 +184,15 @@ after_initialize do
   end
 end
 
+# Add a narrow non-breaking space before
+# - exclamation mark (!)
+# - question mark (?)
+# - semicolon (;)
 class Typography
   def self.to_french(text)
-    text.gsub(/(\s|)+([!?;]+(\s|\z))/, ' \2\3')
+    text.gsub(/\s*([!?;]+(\s|\z))/, ' \1\2')
   end
   def self.to_html_french(text)
-    text.gsub(/(\s|)+([!?;]+(\s|\z))/, '&thinsp;\2\3')
+    text.gsub(/\s*([!?;]+(\s|\z))/, '&thinsp;\1\2')
   end
 end
