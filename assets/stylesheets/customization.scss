@@ -403,7 +403,7 @@ header .extra-info-wrapper {
   font-weight: normal;
 
   .category-navigation & {
-    padding: 0.8rem 1.2rem;
+    padding: .6rem 1.2rem 1rem;
     font-size: 1.4rem;
     font-weight: 500;
   }
@@ -1506,4 +1506,20 @@ body span.twitter-typeahead .tt-menu .topic-statuses {
 
 body span.twitter-typeahead .topic-title {
   color: $turquoise2;
+}
+
+.badge-category > .fa {
+  margin-right: 5px;
+}
+
+.select-kit.combo-box.category-drop {
+  pointer-events: none;
+  &.bar.has-selection .category-drop-header {
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+  .category-drop-header .caret-icon {
+    display: none;
+  }
 }
